@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RevitAddIns>
+  <AddIn Type="Command">
+    <Text>Command ExportSymbolInstanceGeo</Text>
+    <Description>Some description for ExportSymbolInstanceGeo</Description>
+    <Assembly>ExportSymbolInstanceGeo.dll</Assembly>
+    <FullClassName>ExportSymbolInstanceGeo.Command</FullClassName>
+    <ClientId>11029e90-356f-45e4-a92b-49b7492e619a</ClientId>
+    <VendorId>com.typepad.thebuildingcoder</VendorId>
+    <VendorDescription>The Building Coder, http://thebuildingcoder.typepad.com</VendorDescription>
+  </AddIn>
+  <AddIn Type="Application">
+    <Name>Application ExportSymbolInstanceGeo</Name>
+    <Assembly>ExportSymbolInstanceGeo.dll</Assembly>
+    <FullClassName>ExportSymbolInstanceGeo.App</FullClassName>
+    <ClientId>2a17de46-9fdd-413d-bff3-541001f6b321</ClientId>
+    <VendorId>com.typepad.thebuildingcoder</VendorId>
+    <VendorDescription>The Building Coder, http://thebuildingcoder.typepad.com</VendorDescription>
+  </AddIn>
+</RevitAddIns>
