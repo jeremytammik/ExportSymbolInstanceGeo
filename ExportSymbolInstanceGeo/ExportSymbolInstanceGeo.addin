@@ -9,12 +9,4 @@
     <VendorId>com.typepad.thebuildingcoder</VendorId>
     <VendorDescription>The Building Coder, http://thebuildingcoder.typepad.com</VendorDescription>
   </AddIn>
-  <AddIn Type="Application">
-    <Name>Application ExportSymbolInstanceGeo</Name>
-    <Assembly>ExportSymbolInstanceGeo.dll</Assembly>
-    <FullClassName>ExportSymbolInstanceGeo.App</FullClassName>
-    <ClientId>2a17de46-9fdd-413d-bff3-541001f6b321</ClientId>
-    <VendorId>com.typepad.thebuildingcoder</VendorId>
-    <VendorDescription>The Building Coder, http://thebuildingcoder.typepad.com</VendorDescription>
-  </AddIn>
 </RevitAddIns>

@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle( "ExportSymbolInstanceGeo" )]
-[assembly: AssemblyDescription( "Revit Add-In Description for ExportSymbolInstanceGeo" )]
+[assembly: AssemblyDescription( "Revit add-in to export selected element symbol and instance geometry triangles" )]
 [assembly: AssemblyConfiguration( "" )]
 [assembly: AssemblyCompany( "Autodesk Inc." )]
 [assembly: AssemblyProduct( "ExportSymbolInstanceGeo Revit C# .NET Add-In" )]
@@ -32,5 +32,11 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
+//
+// History:
+//
+// 2019-12-03 2020.0.0.0 initial skeleton 
+// 2019-12-03 2020.0.0.0 started implementing TriangleCollector based on SDK ElementViewer
+//
 [assembly: AssemblyVersion( "2020.0.0.0" )]
 [assembly: AssemblyFileVersion( "2020.0.0.0" )]
