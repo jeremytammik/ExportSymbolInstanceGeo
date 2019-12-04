@@ -40,12 +40,16 @@ namespace ExportSymbolInstanceGeo
     IntVertexLookup _vertices;
     List<LineSegmentIndices> _lines;
     List<TriangleIndices> _instance_triangles;
+    Transform _symbol_transform;
     List<TriangleIndices> _symbol_triangles;
     List<Transform> _transformations;
 
     #region Transform stack
     void PushTransformation( Transform t )
     {
+      Debug.Assert( null == _transformations,
+        "currently only one level deep supported" );
+
       if( null == _transformations )
       {
         _transformations = new List<Transform>( 1 );
@@ -108,6 +112,19 @@ namespace ExportSymbolInstanceGeo
 
     void DrawSymbolTriangle( XYZ p, XYZ q, XYZ r )
     {
+      Debug.Assert( 1 == _transformations.Count, 
+        "expected single level of symbol transformations" );
+
+      if( null == _symbol_transform )
+      {
+        _symbol_transform = _transformations[ 0 ];
+      }
+      else
+      {
+        Debug.Assert( _symbol_transform.AlmostEqual( 
+          _transformations[ 0 ] ) );
+      }
+
       _symbol_triangles.Add( new TriangleIndices(
         VertexIndexOf( p ),
         VertexIndexOf( q ),
@@ -120,6 +137,7 @@ namespace ExportSymbolInstanceGeo
       _vertices = new IntVertexLookup();
       _lines = new List<LineSegmentIndices>();
       _instance_triangles = new List<TriangleIndices>();
+      _symbol_transform = null;
       _symbol_triangles = new List<TriangleIndices>();
       _transformations = null;
     }
@@ -565,6 +583,19 @@ namespace ExportSymbolInstanceGeo
         return string.Join( " ",
           _symbol_triangles.Select(
             t => t.ToString() ) );
+      }
+    }
+
+    public string SymbolTransform
+    {
+      get
+      {
+        Transform t = _symbol_transform;
+        IntPoint3d origin = new IntPoint3d( t.Origin );
+        return Util.PointString( t.BasisX, true )
+          + " " + Util.PointString( t.BasisY, true )
+          + " " + Util.PointString( t.BasisX, true )
+          + " " + origin.ToString( true );
       }
     }
   }

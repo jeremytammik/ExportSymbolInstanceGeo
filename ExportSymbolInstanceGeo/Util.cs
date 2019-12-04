@@ -1,9 +1,40 @@
 ﻿using System;
+using Autodesk.Revit.DB;
 
 namespace ExportSymbolInstanceGeo
 {
   class Util
   {
+    #region Formatting
+    /// <summary>
+    /// Return a string for a real number
+    /// formatted to four decimal places.
+    /// </summary>
+    public static string RealString( double a )
+    {
+      return a.ToString( "0.####" );
+    }
+
+    /// <summary>
+    /// Return a string for an XYZ point
+    /// or vector with its coordinates
+    /// formatted to four decimal places.
+    /// </summary>
+    public static string PointString(
+      XYZ p,
+      bool onlySpaceSeparator = false )
+    {
+      string format_string = onlySpaceSeparator
+        ? "{0} {1} {2}"
+        : "({0},{1},{2})";
+
+      return string.Format( format_string,
+        RealString( p.X ),
+        RealString( p.Y ),
+        RealString( p.Z ) );
+    }
+    #endregion // Formatting
+
     #region Unit Handling
     const double _inchToMm = 25.4;
     const double _footToMm = 12 * _inchToMm;
