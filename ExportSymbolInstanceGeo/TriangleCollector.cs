@@ -45,6 +45,14 @@ namespace ExportSymbolInstanceGeo
     List<Transform> _transformations;
 
     #region Transform stack
+    bool InSymbol
+    {
+      get
+      {
+        return null != _transformations;
+      }
+    }
+
     void PushTransformation( Transform t )
     {
       Debug.Assert( null == _transformations,
@@ -112,23 +120,26 @@ namespace ExportSymbolInstanceGeo
 
     void DrawSymbolTriangle( XYZ p, XYZ q, XYZ r )
     {
-      Debug.Assert( 1 == _transformations.Count,
-        "expected single level of symbol transformations" );
-
-      if( null == _symbol_transform )
+      if( InSymbol )
       {
-        _symbol_transform = _transformations[ 0 ];
-      }
-      else
-      {
-        Debug.Assert( _symbol_transform.AlmostEqual(
-          _transformations[ 0 ] ) );
-      }
+        Debug.Assert( 1 == _transformations.Count,
+          "expected single level of symbol transformations" );
 
-      _symbol_triangles.Add( new TriangleIndices(
-        VertexIndexOf( p ),
-        VertexIndexOf( q ),
-        VertexIndexOf( r ) ) );
+        if( null == _symbol_transform )
+        {
+          _symbol_transform = _transformations[ 0 ];
+        }
+        else
+        {
+          Debug.Assert( _symbol_transform.AlmostEqual(
+            _transformations[ 0 ] ) );
+        }
+
+        _symbol_triangles.Add( new TriangleIndices(
+          VertexIndexOf( p ),
+          VertexIndexOf( q ),
+          VertexIndexOf( r ) ) );
+      }
     }
     #endregion // Store vertices, lines and triangles
 

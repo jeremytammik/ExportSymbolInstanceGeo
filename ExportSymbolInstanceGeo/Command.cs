@@ -165,33 +165,34 @@ namespace ExportSymbolInstanceGeo
       //lines.Add( serializer.Serialize( data ) );
       //File.AppendAllLines( FilePath, lines );
 
+      const string json_format_str = "\"{0}\" : \"{1}\"";
+      const string json_format_arr = "\"{0}\" : [{1}]";
+
       List<string> lines = new List<string>( n );
 
-      lines.Add( string.Format( "\"unique_id\" : \"{0}\"", e.UniqueId ) );
+      lines.Add( string.Format( json_format_str, "unique_id", e.UniqueId ) );
 
-      using( StreamWriter s = new StreamWriter(
-        _filepath ) )
+      string vertices = triangulator.VertexCoordinates;
+      string instance_triangle_indices = triangulator.InstanceTriangleIndices;
+
+      lines.Add( string.Format( json_format_arr, "coords", vertices ) );
+      lines.Add( string.Format( json_format_arr, "instance_triangles", instance_triangle_indices ) );
+
+      if( triangulator.HasSymbol )
       {
-        const string json_format_str = "\"{0}\" : \"{1}\"";
-        const string json_format_arr = "\"{0}\" : [{1}]";
+        string symbol_transform = triangulator.SymbolTransform;
+        string symbol_triangle_indices = triangulator.SymbolTriangleIndices;
+        lines.Add( string.Format( json_format_arr, "symbol_transform", symbol_transform ) );
+        lines.Add( string.Format( json_format_arr, "symbol_triangle_indices", symbol_triangle_indices ) );
+      }
 
-        s.WriteLine( "{" );
-        s.WriteLine( string.Format( json_format_str, "unique_id", e.UniqueId ) );
+      using( StreamWriter s = new StreamWriter( _filepath ) )
+      {
+        string a = "{\r\n" 
+          + string.Join( ",\r\n", lines ) 
+          + "\r\n}";
 
-        string vertices = triangulator.VertexCoordinates;
-        string instance_triangle_indices = triangulator.InstanceTriangleIndices;
-
-        s.WriteLine( string.Format( json_format_arr, "coords", vertices ) );
-        s.WriteLine( string.Format( json_format_arr, "instance_triangles", instance_triangle_indices ) );
-
-        if( triangulator.HasSymbol )
-        {
-          string symbol_transform = triangulator.SymbolTransform;
-          string symbol_triangle_indices = triangulator.SymbolTriangleIndices;
-          s.WriteLine( string.Format( json_format_arr, "symbol_transform", symbol_transform ) );
-          s.WriteLine( string.Format( json_format_arr, "symbol_triangle_indices", symbol_triangle_indices ) );
-        }
-
+        s.Write( a );
         s.Close();
       }
       return Result.Succeeded;

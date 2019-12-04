@@ -45,6 +45,8 @@ using System.Runtime.InteropServices;
 // 2019-12-04 2020.0.0.0 implemented SymbolTransform output 
 // 2019-12-04 2020.0.0.0 implemented json output 
 // 2019-12-04 2020.0.0.0 implemented HasSymbol predicate
+// 2019-12-04 2020.0.0.0 implemented InSymbol predicate
+// 2019-12-04 2020.0.0.0 properly formatted json and successful first test
 //
 [assembly: AssemblyVersion( "2020.0.0.0" )]
 [assembly: AssemblyFileVersion( "2020.0.0.0" )]
