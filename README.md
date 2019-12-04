@@ -72,6 +72,16 @@ For a production scenario, one should rather go for the custom exporter solution
 I also ((over-?) optimisticaly) believe that the custom exporter helps automatically solve the issue of differentiating between family instances that require individual geometry versus those that can reuse the symbol geometry.
 
 
+## No Nested Families
+
+The first version of the per-element exporter is completed and tested in release 2020.0.0.1.
+
+It only supports symbols one level deep.
+
+It has assertions built in that fire if you try to use it on more nested family definitions.
+
+We will have to completely reconsider and rethink the situation if that case needs to be handled also.
+
 
 ## Author
 
