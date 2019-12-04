@@ -576,6 +576,14 @@ namespace ExportSymbolInstanceGeo
       }
     }
 
+    public bool HasSymbol
+    {
+      get
+      {
+        return null != _symbol_transform;
+      }
+    }
+
     public string SymbolTriangleIndices
     {
       get

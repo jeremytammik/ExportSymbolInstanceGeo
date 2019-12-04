@@ -24,7 +24,7 @@ namespace ExportSymbolInstanceGeo
     /// <summary>
     /// User interface usage prompt string
     /// </summary>
-    const string _prompt = "Please select a single " 
+    const string _prompt = "Please select a single "
       + "element to export its solid triangles.";
 
 #if OBJ_EXPORTER_CODE
@@ -155,7 +155,7 @@ namespace ExportSymbolInstanceGeo
         }
       }
 
-      TriangleCollector triangulator 
+      TriangleCollector triangulator
         = new TriangleCollector();
 
       triangulator.DrawElement( e );
@@ -168,47 +168,32 @@ namespace ExportSymbolInstanceGeo
       List<string> lines = new List<string>( n );
 
       lines.Add( string.Format( "\"unique_id\" : \"{0}\"", e.UniqueId ) );
-  
-      using( StreamWriter s = new StreamWriter( 
+
+      using( StreamWriter s = new StreamWriter(
         _filepath ) )
       {
-        s.WriteLine( string.Format( "\"unique_id\" : \"{0}\"", e.UniqueId ) );
+        const string json_format_str = "\"{0}\" : \"{1}\"";
+        const string json_format_arr = "\"{0}\" : [{1}]";
+
+        s.WriteLine( "{" );
+        s.WriteLine( string.Format( json_format_str, "unique_id", e.UniqueId ) );
 
         string vertices = triangulator.VertexCoordinates;
-        string instance_triangleIndices = triangulator.InstanceTriangleIndices;
-        string symbol_triangleIndices = triangulator.SymbolTriangleIndices;
+        string instance_triangle_indices = triangulator.InstanceTriangleIndices;
 
-        //{ "element_id": "d7a856d0-2e09-4ca6-83b0-9e7a18885b28-0012c5cf-1",
-        //  "solids": [ { 
-        //    "faces": [ { 
-        //      "triangles": [ { 
-        //        "/": "these are the 3 coordinates of the 3 vertices of the triangle. The order doesn't matter as long as its consistent", 
-        //        "coords": [10, 11, 12, 1, 2, 3, 21, 22, 23] }, 
-        //      { "coords": [14, 11, 12, 1, 2, 3, 21, 22, 23] 
-        //      } ] 
-        //    } ] 
-        //  } ] 
-        //}
+        s.WriteLine( string.Format( json_format_arr, "coords", vertices ) );
+        s.WriteLine( string.Format( json_format_arr, "instance_triangles", instance_triangle_indices ) );
 
-        //s.WriteLine( caption );
+        if( triangulator.HasSymbol )
+        {
+          string symbol_transform = triangulator.SymbolTransform;
+          string symbol_triangle_indices = triangulator.SymbolTriangleIndices;
+          s.WriteLine( string.Format( json_format_arr, "symbol_transform", symbol_transform ) );
+          s.WriteLine( string.Format( json_format_arr, "symbol_triangle_indices", symbol_triangle_indices ) );
+        }
 
-        //List<int> keys = new List<int>( loops.Keys );
-        //keys.Sort();
-        //foreach( int key in keys )
-        //{
-        //  ElementId id = new ElementId( key );
-        //  Element e = doc.GetElement( id );
-
-        //  s.WriteLine(
-        //    "{{\"name\":\"{0}\", \"id\":\"{1}\", "
-        //    + "\"uid\":\"{2}\", \"svg_path\":\"{3}\"}}",
-        //    e.Name, e.Id, e.UniqueId,
-        //    loops[ key ].SvgPath );
-        //}
         s.Close();
       }
-
-
       return Result.Succeeded;
     }
   }

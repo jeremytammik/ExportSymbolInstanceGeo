@@ -43,6 +43,8 @@ using System.Runtime.InteropServices;
 // 2019-12-04 2020.0.0.0 research on OrderedDictiuonary, added sorted _vertex_list
 // 2019-12-04 2020.0.0.0 started implementing json output
 // 2019-12-04 2020.0.0.0 implemented SymbolTransform output 
+// 2019-12-04 2020.0.0.0 implemented json output 
+// 2019-12-04 2020.0.0.0 implemented HasSymbol predicate
 //
 [assembly: AssemblyVersion( "2020.0.0.0" )]
 [assembly: AssemblyFileVersion( "2020.0.0.0" )]
