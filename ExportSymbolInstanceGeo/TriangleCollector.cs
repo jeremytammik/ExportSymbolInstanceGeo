@@ -23,6 +23,12 @@ namespace ExportSymbolInstanceGeo
       public int A { get; set; }
       public int B { get; set; }
       public int C { get; set; }
+      public TriangleIndices( int a, int b, int c )
+      {
+        A = a;
+        B = b;
+        C = c;
+      }
     }
 
     IntVertexLookup _vertices; 

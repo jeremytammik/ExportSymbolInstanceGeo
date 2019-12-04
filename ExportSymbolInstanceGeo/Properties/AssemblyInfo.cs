@@ -38,6 +38,7 @@ using System.Runtime.InteropServices;
 // 2019-12-03 2020.0.0.0 initial skeleton 
 // 2019-12-03 2020.0.0.0 started implementing TriangleCollector based on SDK ElementViewer
 // 2019-12-04 2020.0.0.0 renamed IntVertexLookup
+// 2019-12-04 2020.0.0.0 added IEquatable and GetHashCode
 //
 [assembly: AssemblyVersion( "2020.0.0.0" )]
 [assembly: AssemblyFileVersion( "2020.0.0.0" )]

@@ -6,7 +6,8 @@ namespace ExportSymbolInstanceGeo
   /// <summary>
   /// An integer-based 3D point class.
   /// </summary>
-  class IntPoint3d : IComparable<IntPoint3d>
+  class IntPoint3d : IComparable<IntPoint3d>, 
+    IEquatable<IntPoint3d>
   {
     public int X { get; set; }
     public int Y { get; set; }
@@ -59,7 +60,8 @@ namespace ExportSymbolInstanceGeo
 
     /// <summary>
     /// Comparison with another point, important
-    /// for dictionary lookup support.
+    /// for dictionary lookup support, implements 
+    /// IComparable<>.
     /// </summary>
     public int CompareTo( IntPoint3d a )
     {
@@ -77,6 +79,39 @@ namespace ExportSymbolInstanceGeo
       return d;
     }
 
+    /// <summary>
+    /// Equality predicate, implements IEquatable<>.
+    /// </summary>
+    public bool Equals( IntPoint3d other )
+    {
+      return 0 == CompareTo( other );
+    }
+
+    /// <summary>
+    /// Return hash code. 
+    /// When overriding equality, you should always 
+    /// have a matching Equals() and GetHashCode() 
+    /// (i.e. for two values, if Equals() returns true
+    /// they must return the same hash-code, but the 
+    /// converse is not required).
+    /// https://stackoverflow.com/questions/720177/default-implementation-for-object-gethashcode
+    /// </summary>
+    public override int GetHashCode()
+    {
+      // disable overflow, for the unlikely possibility 
+      // that you are compiling with overflow-checking 
+      // enabled
+
+      unchecked
+      {         
+        int hash = 27;
+        hash = (13 * hash) + X.GetHashCode();
+        hash = (13 * hash) + Y.GetHashCode();
+        hash = (13 * hash) + Z.GetHashCode();
+        return hash;
+      }
+    }
+    
     /// <summary>
     /// Display as a string.
     /// </summary>
