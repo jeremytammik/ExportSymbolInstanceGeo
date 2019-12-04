@@ -31,16 +31,16 @@ namespace ExportSymbolInstanceGeo
       }
     }
 
-    IntVertexLookup _vertices; 
+    IntVertexLookup _vertices;
     List<LineSegmentIndices> _lines;
     List<TriangleIndices> _instance_triangles;
     List<TriangleIndices> _symbol_triangles;
     List<Transform> _transformations;
 
     #region Transform Stack
-    void PushTransformation(Transform t)
+    void PushTransformation( Transform t )
     {
-      if( null == _transformations)
+      if( null == _transformations )
       {
         _transformations = new List<Transform>( 1 );
       }
@@ -49,7 +49,7 @@ namespace ExportSymbolInstanceGeo
 
     void PopTransformation()
     {
-      Debug.Assert( null != _transformations, 
+      Debug.Assert( null != _transformations,
         "cannot pop transform from empty stack" );
 
       int n = _transformations.Count;
@@ -65,7 +65,7 @@ namespace ExportSymbolInstanceGeo
     }
     #endregion // Transform Stack
 
-    public TriangleCollector(Element e)
+    public TriangleCollector( Element e )
     {
       _vertices = new IntVertexLookup();
       _lines = new List<LineSegmentIndices>();
@@ -77,7 +77,7 @@ namespace ExportSymbolInstanceGeo
     /// <summary>
     /// Get geometry triangles from an element
     /// </summary>
-    void DrawElement(Element e)
+    void DrawElement( Element e )
     {
       // If it is a Group, look at its components
 
@@ -129,7 +129,7 @@ namespace ExportSymbolInstanceGeo
       }
     }
 
-    void DrawCurve(Curve c)
+    void DrawCurve( Curve c )
     {
       DrawLines( c.Tessellate() );
     }
@@ -152,7 +152,7 @@ namespace ExportSymbolInstanceGeo
       }
     }
 
-    void DrawLine(XYZ p, XYZ q )
+    void DrawLine( XYZ p, XYZ q )
     {
       XYZ pt = p;
       XYZ qt = q;
@@ -476,4 +476,4 @@ namespace ExportSymbolInstanceGeo
 #endif // ElementViewer
 
   }
-  }
+}
