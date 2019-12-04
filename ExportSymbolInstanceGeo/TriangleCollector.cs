@@ -605,16 +605,25 @@ namespace ExportSymbolInstanceGeo
       }
     }
 
-    public string SymbolTransform
+    public string SymbolRotation
+    {
+      get
+      {
+        Transform t = _symbol_transform;
+        return Util.PointString( t.BasisX, true )
+          + " " + Util.PointString( t.BasisY, true )
+          + " " + Util.PointString( t.BasisZ, true );
+      }
+    }
+
+    public string SymbolTranslation
     {
       get
       { 
-        Transform t = _symbol_transform;
-        IntPoint3d origin = new IntPoint3d( t.Origin );
-        return Util.PointString( t.BasisX, true )
-          + " " + Util.PointString( t.BasisY, true )
-          + " " + Util.PointString( t.BasisX, true )
-          + " " + origin.ToString( true );
+        IntPoint3d origin = new IntPoint3d( 
+          _symbol_transform.Origin );
+
+        return origin.ToString( true );
       }
     }
   }

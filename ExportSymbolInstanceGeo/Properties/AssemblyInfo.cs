@@ -47,6 +47,7 @@ using System.Runtime.InteropServices;
 // 2019-12-04 2020.0.0.0 implemented HasSymbol predicate
 // 2019-12-04 2020.0.0.0 implemented InSymbol predicate
 // 2019-12-04 2020.0.0.0 properly formatted json and successful first test
+// 2019-12-04 2020.0.0.1 split symbol transform into rotation and translation
 //
-[assembly: AssemblyVersion( "2020.0.0.0" )]
-[assembly: AssemblyFileVersion( "2020.0.0.0" )]
+[assembly: AssemblyVersion( "2020.0.0.1" )]
+[assembly: AssemblyFileVersion( "2020.0.0.1" )]
