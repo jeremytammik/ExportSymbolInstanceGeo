@@ -1,12 +1,13 @@
-﻿using Autodesk.Revit.DB;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
+using Autodesk.Revit.DB;
 
 namespace ExportSymbolInstanceGeo
 {
   class TriangleCollector
   {
+    #region Line and triangle indices
     class LineSegmentIndices
     {
       public int A { get; set; }
@@ -29,7 +30,12 @@ namespace ExportSymbolInstanceGeo
         B = b;
         C = c;
       }
+      public override string ToString()
+      {
+        return string.Format( "{0} {1} {2}", A, B, C );
+      }
     }
+    #endregion // Line and triangle indices
 
     IntVertexLookup _vertices;
     List<LineSegmentIndices> _lines;
@@ -37,7 +43,7 @@ namespace ExportSymbolInstanceGeo
     List<TriangleIndices> _symbol_triangles;
     List<Transform> _transformations;
 
-    #region Transform Stack
+    #region Transform stack
     void PushTransformation( Transform t )
     {
       if( null == _transformations )
@@ -63,9 +69,53 @@ namespace ExportSymbolInstanceGeo
         _transformations.RemoveAt( n - 1 );
       }
     }
-    #endregion // Transform Stack
 
-    public TriangleCollector( Element e )
+    XYZ TransformPoint( XYZ p )
+    {
+      XYZ pt = p;
+      if( null != _transformations )
+      {
+        int n = _transformations.Count;
+        for( int i = n - 1; i >= 0; --i )
+        {
+          pt = _transformations[ i ].OfPoint( pt );
+        }
+      }
+      return pt;
+    }
+    #endregion // Transform stack
+
+    #region Store vertices, lines and triangles
+    int VertexIndexOf( XYZ p )
+    {
+      return _vertices.Add( new IntPoint3d( p ) );
+    }
+
+    void DrawLine( XYZ p, XYZ q )
+    {
+      _lines.Add( new LineSegmentIndices(
+        VertexIndexOf( TransformPoint( p ) ),
+        VertexIndexOf( TransformPoint( q ) ) ) );
+    }
+
+    void DrawInstanceTriangle( XYZ p, XYZ q, XYZ r )
+    {
+      _instance_triangles.Add( new TriangleIndices(
+        VertexIndexOf( TransformPoint( p ) ),
+        VertexIndexOf( TransformPoint( q ) ),
+        VertexIndexOf( TransformPoint( r ) ) ) );
+    }
+
+    void DrawSymbolTriangle( XYZ p, XYZ q, XYZ r )
+    {
+      _symbol_triangles.Add( new TriangleIndices(
+        VertexIndexOf( p ),
+        VertexIndexOf( q ),
+        VertexIndexOf( r ) ) );
+    }
+    #endregion // Store vertices, lines and triangles
+
+    public TriangleCollector()
     {
       _vertices = new IntVertexLookup();
       _lines = new List<LineSegmentIndices>();
@@ -77,7 +127,7 @@ namespace ExportSymbolInstanceGeo
     /// <summary>
     /// Get geometry triangles from an element
     /// </summary>
-    void DrawElement( Element e )
+    public void DrawElement( Element e )
     {
       // If it is a Group, look at its components
 
@@ -152,41 +202,55 @@ namespace ExportSymbolInstanceGeo
       }
     }
 
-    void DrawLine( XYZ p, XYZ q )
-    {
-      XYZ pt = p;
-      XYZ qt = q;
-      if( null != _transformations )
-      {
-        int n = _transformations.Count;
-        for( int i = n - 1; i >= 0; --i )
-        {
-          pt = _transformations[ i ].OfPoint( pt );
-          qt = _transformations[ i ].OfPoint( qt );
-        }
-      }
-      IntPoint3d pti = new IntPoint3d( pt );
-      IntPoint3d qti = new IntPoint3d( qt );
-      _lines.Add( new LineSegmentIndices(
-        _vertices.AddVertex( pti ),
-        _vertices.AddVertex( qti ) ) );
-    }
-
     void DrawInstance( GeometryInstance inst )
     {
-      throw new NotImplementedException();
+      GeometryElement symbol_geo = inst.SymbolGeometry;
+
+      if( null != symbol_geo )
+      {
+        PushTransformation( inst.Transform );
+        DrawGeometry( symbol_geo );
+        PopTransformation();
+      }
     }
 
     void DrawMesh( Mesh mesh )
     {
-      throw new NotImplementedException();
+      int n = mesh.NumTriangles;
+      for( int i = 0; i < n; ++i )
+      {
+        MeshTriangle t = mesh.get_Triangle( i );
+        XYZ p = t.get_Vertex( 0 );
+        XYZ q = t.get_Vertex( 1 );
+        XYZ r = t.get_Vertex( 2 );
+        DrawInstanceTriangle( p, q, r );
+        DrawSymbolTriangle( p, q, r );
+      }
     }
 
     void DrawSolid( Solid solid )
     {
-      throw new NotImplementedException();
+      foreach( Face f in solid.Faces )
+      {
+        DrawFace( f );
+      }
+      foreach(Edge e in solid.Edges)
+      {
+        DrawEdge( e );
+      }
     }
 
+    void DrawEdge(Edge e)
+    {
+      DrawLines( e.Tessellate() );
+    }
+
+    void DrawFace(Face f)
+    {
+      DrawMesh( f.Triangulate() );
+    }
+
+    #region ElementViewer VB.NET code
 #if ElementViewer
 
     Private Sub PushTransformation(ByVal transform As Autodesk.Revit.DB.Transform)
@@ -474,6 +538,34 @@ namespace ExportSymbolInstanceGeo
     End Sub
 
 #endif // ElementViewer
+    #endregion // ElementViewer VB.NET code
 
+    public string VertexCoordinates
+    {
+      get
+      {
+        return _vertices.Coordinates;
+      }
+    }
+
+    public string InstanceTriangleIndices
+    {
+      get
+      {
+        return string.Join( " ",
+          _instance_triangles.Select(
+            t => t.ToString() ) );
+      }
+    }
+
+    public string SymbolTriangleIndices
+    {
+      get
+      {
+        return string.Join( " ",
+          _symbol_triangles.Select(
+            t => t.ToString() ) );
+      }
+    }
   }
 }
