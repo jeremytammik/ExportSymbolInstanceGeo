@@ -1,6 +1,4 @@
-﻿
-
-using Autodesk.Revit.DB;
+﻿using Autodesk.Revit.DB;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -9,52 +7,6 @@ namespace ExportSymbolInstanceGeo
 {
   class TriangleCollector
   {
-    #region VertexLookupInt
-    /// <summary>
-    /// A vertex lookup class to eliminate 
-    /// duplicate vertex definitions.
-    /// </summary>
-    class VertexLookup : Dictionary<IntPoint3d, int>
-    {
-      #region IntPoint3dEqualityComparer
-      /// <summary>
-      /// Define equality for IntPoint3d.
-      /// </summary>
-      class IntPoint3dEqualityComparer : IEqualityComparer<IntPoint3d>
-      {
-        public bool Equals( IntPoint3d p, IntPoint3d q )
-        {
-          return 0 == p.CompareTo( q );
-        }
-
-        public int GetHashCode( IntPoint3d p )
-        {
-          return (p.X.ToString()
-            + "," + p.Y.ToString()
-            + "," + p.Z.ToString())
-            .GetHashCode();
-        }
-      }
-      #endregion // IntPoint3dEqualityComparer
-
-      public VertexLookup()
-        : base( new IntPoint3dEqualityComparer() )
-      {
-      }
-
-      /// <summary>
-      /// Return the index of the given vertex,
-      /// adding a new entry if required.
-      /// </summary>
-      public int AddVertex( IntPoint3d p )
-      {
-        return ContainsKey( p )
-          ? this[ p ]
-          : this[ p ] = Count;
-      }
-    }
-    #endregion // VertexLookupInt
-
     class LineSegmentIndices
     {
       public int A { get; set; }
@@ -73,9 +25,10 @@ namespace ExportSymbolInstanceGeo
       public int C { get; set; }
     }
 
-    VertexLookup _vertices;
+    IntVertexLookup _vertices;
     List<LineSegmentIndices> _lines;
-    List<TriangleIndices> _triangles;
+    List<TriangleIndices> _instance_triangles;
+    List<TriangleIndices> _symbol_triangles;
     List<Transform> _transformations;
 
     #region Transform Stack
@@ -108,9 +61,10 @@ namespace ExportSymbolInstanceGeo
 
     public TriangleCollector(Element e)
     {
-      _vertices = new VertexLookup();
+      _vertices = new IntVertexLookup();
       _lines = new List<LineSegmentIndices>();
-      _triangles = new List<TriangleIndices>();
+      _instance_triangles = new List<TriangleIndices>();
+      _symbol_triangles = new List<TriangleIndices>();
       _transformations = null;
     }
 

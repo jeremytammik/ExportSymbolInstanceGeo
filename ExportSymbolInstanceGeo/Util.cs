@@ -1,6 +1,4 @@
-﻿
-using Autodesk.Revit.DB;
-using System;
+﻿using System;
 
 namespace ExportSymbolInstanceGeo
 {
@@ -32,6 +30,5 @@ namespace ExportSymbolInstanceGeo
         MidpointRounding.AwayFromZero );
     }
     #endregion // Unit Handling
-
   }
 }

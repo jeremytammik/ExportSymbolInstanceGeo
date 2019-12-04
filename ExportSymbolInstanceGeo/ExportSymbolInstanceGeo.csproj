@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="Command.cs" />
     <Compile Include="IntPoint3d.cs" />
+    <Compile Include="IntVertexLookup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TriangleCollector.cs" />
     <Compile Include="Util.cs" />
