@@ -1,6 +1,7 @@
 # ExportSymbolInstanceGeo
 
-Export selected element symbol and instance geometry triangles.
+Revit C# .NET add-in that exports selected element symbol and instance geometry triangles.
+
 
 ## Task
 
@@ -69,4 +70,16 @@ Picking an individual element and accessing its geometry is not the recommended 
 For a production scenario, one should rather go for the custom exporter solution, not select an individual element.
 
 I also ((over-?) optimisticaly) believe that the custom exporter helps automatically solve the issue of differentiating between family instances that require individual geometry versus those that can reuse the symbol geometry.
+
+
+
+## Author
+
+Jeremy Tammik, [The Building Coder](http://thebuildingcoder.typepad.com), [ADN](http://www.autodesk.com/adn) [Open](http://www.autodesk.com/adnopen), [Autodesk Inc.](http://www.autodesk.com)
+
+
+## License
+
+This sample is licensed under the terms of the [MIT License](http://opensource.org/licenses/MIT).
+Please see the [LICENSE](LICENSE) file for full details.
 
