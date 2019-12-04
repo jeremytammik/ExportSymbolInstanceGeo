@@ -9,7 +9,7 @@ namespace ExportSymbolInstanceGeo
     /// <summary>
     /// Return a string for a real number
     /// formatted to four decimal places.
-    /// </summary>
+    /// </summary> 
     public static string RealString( double a )
     {
       return a.ToString( "0.####" );

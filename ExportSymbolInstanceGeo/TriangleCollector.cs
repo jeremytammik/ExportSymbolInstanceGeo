@@ -112,7 +112,7 @@ namespace ExportSymbolInstanceGeo
 
     void DrawSymbolTriangle( XYZ p, XYZ q, XYZ r )
     {
-      Debug.Assert( 1 == _transformations.Count, 
+      Debug.Assert( 1 == _transformations.Count,
         "expected single level of symbol transformations" );
 
       if( null == _symbol_transform )
@@ -121,7 +121,7 @@ namespace ExportSymbolInstanceGeo
       }
       else
       {
-        Debug.Assert( _symbol_transform.AlmostEqual( 
+        Debug.Assert( _symbol_transform.AlmostEqual(
           _transformations[ 0 ] ) );
       }
 
@@ -252,18 +252,18 @@ namespace ExportSymbolInstanceGeo
       {
         DrawFace( f );
       }
-      foreach(Edge e in solid.Edges)
+      foreach( Edge e in solid.Edges )
       {
         DrawEdge( e );
       }
     }
 
-    void DrawEdge(Edge e)
+    void DrawEdge( Edge e )
     {
       DrawLines( e.Tessellate() );
     }
 
-    void DrawFace(Face f)
+    void DrawFace( Face f )
     {
       DrawMesh( f.Triangulate() );
     }
@@ -589,7 +589,7 @@ namespace ExportSymbolInstanceGeo
     public string SymbolTransform
     {
       get
-      {
+      { 
         Transform t = _symbol_transform;
         IntPoint3d origin = new IntPoint3d( t.Origin );
         return Util.PointString( t.BasisX, true )
