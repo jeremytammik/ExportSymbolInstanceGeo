@@ -25,7 +25,7 @@ namespace ExportSymbolInstanceGeo
       public int C { get; set; }
     }
 
-    IntVertexLookup _vertices;
+    IntVertexLookup _vertices; 
     List<LineSegmentIndices> _lines;
     List<TriangleIndices> _instance_triangles;
     List<TriangleIndices> _symbol_triangles;

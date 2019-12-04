@@ -5,7 +5,7 @@ namespace ExportSymbolInstanceGeo
   /// <summary>
   /// A vertex lookup class to eliminate 
   /// duplicate vertex definitions.
-  /// </summary>
+  /// </summary> 
   class IntVertexLookup : Dictionary<IntPoint3d, int>
   {
     #region IntPoint3dEqualityComparer
