@@ -82,6 +82,24 @@ It has assertions built in that fire if you try to use it on more nested family 
 
 We will have to completely reconsider and rethink the situation if that case needs to be handled also.
 
+## Handling Nested Families
+
+Here is an idea on how to handle nested family instances:
+
+Only support symbol definitions one level deep.
+
+Any symbols that are nested within a top-level symbol are subsumed into the top-level symbol.
+No nested symbol geometry is managed.
+The nested symbol geometry is transformed up to the top-level symbol.
+
+One complication is that this may create several different versions of the top-level symbol, and these need to be told apart.
+
+For instance, imagine we have a door family D equipped with different nested door handles H.
+Further, assume D defines a type == symbol D1, and H defines two types H1 and H2.
+Assume the project contains three instances: D1 with H1 and D1 with H2.
+This will generate two symbol definitions for D1.
+How do we identify them, how to tell them apart?
+
 
 ## Author
 
