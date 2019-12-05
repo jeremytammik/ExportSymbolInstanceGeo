@@ -1,6 +1,7 @@
 #region Namespaces
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using Autodesk.Revit.ApplicationServices;
@@ -75,7 +76,8 @@ namespace ExportSymbolInstanceGeo
 
       List<string> lines = new List<string>( n );
 
-      lines.Add( string.Format( json_format_str, "unique_id", e.UniqueId ) );
+      lines.Add( string.Format( json_format_str, 
+        "element_uid", e.UniqueId ) );
 
       lines.Add( string.Format( json_format_arr,
         "coords", triangulator.VertexCoordinates ) );
@@ -85,6 +87,12 @@ namespace ExportSymbolInstanceGeo
 
       if( triangulator.HasSymbol )
       {
+        Debug.Assert( e is FamilyInstance, 
+          "expected only family instance to have symbol geometry" );
+
+        lines.Add( string.Format( json_format_str, "symbol_uid", 
+          (e as FamilyInstance).Symbol.UniqueId ) );
+
         lines.Add( string.Format( json_format_arr, 
           "symbol_rotation", triangulator.SymbolRotation ) );
 
