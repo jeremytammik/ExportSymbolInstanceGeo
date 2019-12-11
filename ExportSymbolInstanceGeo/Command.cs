@@ -81,7 +81,8 @@ namespace ExportSymbolInstanceGeo
         "coords", triangulator.VertexCoordinates ) );
 
       lines.Add( string.Format( json_format_arr, 
-        "instance_triangles", triangulator.InstanceTriangleIndices ) );
+        "instance_triangles", 
+        triangulator.InstanceTriangleIndices ) );
 
       if( triangulator.HasSymbol )
       {
@@ -102,14 +103,17 @@ namespace ExportSymbolInstanceGeo
           "symbol_rotation", triangulator.SymbolRotation ) );
 
           lines.Add( string.Format( json_format_arr,
-            "symbol_translation", triangulator.SymbolTranslation ) );
+            "symbol_translation", 
+            triangulator.SymbolTranslation ) );
 
           lines.Add( string.Format( json_format_arr,
-            "symbol_triangle_indices", triangulator.SymbolTriangleIndices ) );
+            "symbol_triangle_indices", 
+            triangulator.SymbolTriangleIndices ) );
         }
       }
 
-      using( StreamWriter s = new StreamWriter( _filepath ) )
+      using( StreamWriter s = new StreamWriter( 
+        _filepath, true ) )
       {
         string a = "{\r\n" 
           + string.Join( ",\r\n", lines ) 
