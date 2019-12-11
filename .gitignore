@@ -328,3 +328,7 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+
+# Revit backup files
+test/*.[0-9][0-9][0-9][0-9].rfa
+test/*.[0-9][0-9][0-9][0-9].rvt
