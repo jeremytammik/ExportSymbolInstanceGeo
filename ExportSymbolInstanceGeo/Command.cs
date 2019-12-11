@@ -67,9 +67,7 @@ namespace ExportSymbolInstanceGeo
       }
 
       TriangleCollector triangulator
-        = new TriangleCollector();
-
-      triangulator.DrawElement( e );
+        = new TriangleCollector( e );
 
       const string json_format_str = "\"{0}\" : \"{1}\"";
       const string json_format_arr = "\"{0}\" : [{1}]";
@@ -93,14 +91,22 @@ namespace ExportSymbolInstanceGeo
         lines.Add( string.Format( json_format_str, "symbol_uid", 
           (e as FamilyInstance).Symbol.UniqueId ) );
 
-        lines.Add( string.Format( json_format_arr, 
+        if( triangulator.IsNested )
+        {
+          lines.Add( string.Format( json_format_str,
+          "symbol_is_nested", "true" ) );
+        }
+        else
+        {
+          lines.Add( string.Format( json_format_arr,
           "symbol_rotation", triangulator.SymbolRotation ) );
 
-        lines.Add( string.Format( json_format_arr, 
-          "symbol_translation", triangulator.SymbolTranslation ) );
+          lines.Add( string.Format( json_format_arr,
+            "symbol_translation", triangulator.SymbolTranslation ) );
 
-        lines.Add( string.Format( json_format_arr, 
-          "symbol_triangle_indices", triangulator.SymbolTriangleIndices ) );
+          lines.Add( string.Format( json_format_arr,
+            "symbol_triangle_indices", triangulator.SymbolTriangleIndices ) );
+        }
       }
 
       using( StreamWriter s = new StreamWriter( _filepath ) )

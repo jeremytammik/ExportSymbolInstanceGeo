@@ -50,6 +50,7 @@ namespace ExportSymbolInstanceGeo
     Transform _symbol_transform;
     List<TriangleIndices> _symbol_triangles;
     List<Transform> _transformations;
+    int _max_nesting_level;
 
     #region Transform stack
     bool InSymbol
@@ -62,20 +63,21 @@ namespace ExportSymbolInstanceGeo
 
     void PushTransformation( Transform t )
     {
-      Debug.Assert( null == _transformations,
-        "currently only one level deep supported" );
+      //Debug.Assert( null == _transformations,
+      //  "currently only one level deep supported" );
 
       if( null == _transformations )
       {
         _transformations = new List<Transform>( 1 );
       }
       _transformations.Add( t );
+      ++_max_nesting_level;
     }
 
     void PopTransformation()
     {
-      Debug.Assert( null != _transformations,
-        "cannot pop transform from empty stack" );
+      //Debug.Assert( null != _transformations,
+      //  "cannot pop transform from empty stack" );
 
       int n = _transformations.Count;
 
@@ -150,20 +152,11 @@ namespace ExportSymbolInstanceGeo
     }
     #endregion // Store vertices, lines and triangles
 
-    public TriangleCollector()
-    {
-      _vertices = new IntVertexLookup();
-      _lines = new List<LineSegmentIndices>();
-      _instance_triangles = new List<TriangleIndices>();
-      _symbol_transform = null;
-      _symbol_triangles = new List<TriangleIndices>();
-      _transformations = null;
-    }
-
+    #region Private helper methods
     /// <summary>
     /// Get geometry triangles from an element
     /// </summary>
-    public void DrawElement( Element e )
+    void DrawElement( Element e )
     {
       // If it is a Group, look at its components
 
@@ -181,7 +174,6 @@ namespace ExportSymbolInstanceGeo
       DrawGeometry( geo );
     }
 
-    #region Private helper methods
     /// <summary>
     /// Get geometry triangles from a geometry element
     /// </summary>
@@ -578,6 +570,22 @@ namespace ExportSymbolInstanceGeo
     #endregion // ElementViewer VB.NET code
     #endregion // Private helper methods
 
+    /// <summary>
+    /// Collect all triangles from the solid
+    /// of the given element.
+    /// </summary>
+    public TriangleCollector( Element e )
+    {
+      _vertices = new IntVertexLookup();
+      _lines = new List<LineSegmentIndices>();
+      _instance_triangles = new List<TriangleIndices>();
+      _symbol_transform = null;
+      _symbol_triangles = new List<TriangleIndices>();
+      _transformations = null;
+      _max_nesting_level = 0;
+      DrawElement( e );
+    }
+
     #region Public output data accessors
     public string VertexCoordinates
     {
@@ -602,6 +610,14 @@ namespace ExportSymbolInstanceGeo
       get
       {
         return null != _symbol_transform;
+      }
+    }
+
+    public bool IsNested
+    {
+      get
+      {
+        return 1 < _max_nesting_level;
       }
     }
 
