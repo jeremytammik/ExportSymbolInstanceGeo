@@ -52,6 +52,7 @@ using System.Runtime.InteropServices;
 // 2019-12-11 2020.0.0.3 added regions and comments
 // 2019-12-11 2020.0.0.3 suppress symbol triangles and transformation when nested
 // 2019-12-11 2020.0.0.4 append to output file for testing purposes
+// 2019-12-11 2020.0.0.4 implemented and tested nested families
 //
 [assembly: AssemblyVersion( "2020.0.0.4" )]
 [assembly: AssemblyFileVersion( "2020.0.0.4" )]
