@@ -5,6 +5,13 @@ using Autodesk.Revit.DB;
 
 namespace ExportSymbolInstanceGeo
 {
+  /// <summary>
+  /// Collect triangles from the solids of a given element.
+  /// Return them as element instance data in the project.
+  /// If the element contains one single level of symbol 
+  /// geometry, return that also, toether with the required
+  /// transformation from symbol to project coordinates.
+  /// </summary>
   class TriangleCollector
   {
     #region Line and triangle indices
@@ -174,6 +181,7 @@ namespace ExportSymbolInstanceGeo
       DrawGeometry( geo );
     }
 
+    #region Private helper methods
     /// <summary>
     /// Get geometry triangles from a geometry element
     /// </summary>
@@ -568,7 +576,9 @@ namespace ExportSymbolInstanceGeo
 
 #endif // ElementViewer
     #endregion // ElementViewer VB.NET code
+    #endregion // Private helper methods
 
+    #region Public output data accessors
     public string VertexCoordinates
     {
       get
@@ -626,5 +636,6 @@ namespace ExportSymbolInstanceGeo
         return origin.ToString( true );
       }
     }
+    #endregion // Public output data accessors
   }
 }
