@@ -101,6 +101,40 @@ This will generate two symbol definitions for D1.
 How do we identify them, how to tell them apart?
 
 
+## Export FamilyInstance Geometry as FamilySymbol Plus Translation
+
+Let's make a new start with a new command based on the experience gathered from the first attempt.
+
+The goal is to export the geometric information about a specific element.
+
+The command is launched by selecting a specific FamilyInstance and clicking "export geometry".
+
+Export 3 files (suggested format attached):
+
+- `family_instance_geometry.json` - exhaustive information regarding the geometry of the instance. See the attached "example_export.cs" for suggested traversal code. 
+- `family_symbol_geometry.json` - exhaustive information regarding the general family symbol
+- `family_instance_translation_info.json` - information regarding the translation of the specific element to reach its
+
+Also create the code that can take `family_symbol_geometry` + `family_instance_translation_info` and create the `family_instance_geometry` file.
+
+Notes:
+
+- If the instance has sub-elements, skip it.
+- Work only on the currently selected element (obviously, it will be modified to work on all elements later).
+- Need to support all types of faces (just triangulate them using `face.Triangulate(LevelOfDetail)`).
+- No need to support other types of geometries (PolyLine, Point, Curve, ...). Just Solid and Mesh.
+- Please do not export the vertices separately from their indices. Although I understand the value of that, it makes the code less clear at this point.
+- The code should work for elements in linked models as well.
+
+Attachments:
+
+- example_export.cs
+- family_instance_geometry.json
+- family_symbol_geometry.json
+- family_instance_translation_info.json
+
+
+
 ## Author
 
 Jeremy Tammik, [The Building Coder](http://thebuildingcoder.typepad.com), [ADN](http://www.autodesk.com/adn) [Open](http://www.autodesk.com/adnopen), [Autodesk Inc.](http://www.autodesk.com)
