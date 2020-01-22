@@ -2,8 +2,14 @@
 
 Revit C# .NET add-in that exports selected element symbol and instance geometry triangles.
 
+- [Task &ndash; First Iteration](#1.1)
+- [Discussion of First Iteration](#1.2)
+- [No Nested Families](#1.3)
+- [Handling Nested Families](#1.4)
+- [Second Iteration &ndash; Export FamilyInstance Geometry as FamilySymbol Plus Translation](#2)
 
-## Task
+
+## <a name="1.1"></a>Task &ndash; First Iteration
 
 Export element triangles.
 
@@ -26,7 +32,7 @@ such that, given family_symbol.json and translation.json, we can recreate elemen
 
 Note that we need to support all types of faces (just triangulate them).
 
-## Discussion
+## <a name="1.2"></a>Discussion of First Iteration
 
 So, we implement the export of both element geometry and the transformed family definition geometry, all of the files mentioned above?
 
@@ -72,7 +78,7 @@ For a production scenario, one should rather go for the custom exporter solution
 I also ((over-?) optimisticaly) believe that the custom exporter helps automatically solve the issue of differentiating between family instances that require individual geometry versus those that can reuse the symbol geometry.
 
 
-## No Nested Families
+## <a name="1.3"></a>No Nested Families
 
 The first version of the per-element exporter is completed and tested in release 2020.0.0.1.
 
@@ -82,7 +88,7 @@ It has assertions built in that fire if you try to use it on more nested family 
 
 We will have to completely reconsider and rethink the situation if that case needs to be handled also.
 
-## Handling Nested Families
+## <a name="1.4"></a>Handling Nested Families
 
 Here is an idea on how to handle nested family instances:
 
@@ -101,7 +107,7 @@ This will generate two symbol definitions for D1.
 How do we identify them, how to tell them apart?
 
 
-## Export FamilyInstance Geometry as FamilySymbol Plus Translation
+## <a name="2"></a>Second Iteration &ndash; Export FamilyInstance Geometry as FamilySymbol Plus Translation
 
 Let's make a new start with a new command based on the experience gathered from the first attempt.
 
@@ -131,12 +137,12 @@ Notes:
 - The code should work for elements in linked models as well.
 
 
-## Author
+## <a name="author"></a>Author
 
 Jeremy Tammik, [The Building Coder](http://thebuildingcoder.typepad.com), [ADN](http://www.autodesk.com/adn) [Open](http://www.autodesk.com/adnopen), [Autodesk Inc.](http://www.autodesk.com)
 
 
-## License
+## <a name="license"></a>License
 
 This sample is licensed under the terms of the [MIT License](http://opensource.org/licenses/MIT).
 Please see the [LICENSE](LICENSE) file for full details.
