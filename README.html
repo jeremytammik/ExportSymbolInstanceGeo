@@ -1,6 +1,13 @@
 <h1>ExportSymbolInstanceGeo</h1>
 <p>Revit C# .NET add-in that exports selected element symbol and instance geometry triangles.</p>
-<h2>Task</h2>
+<ul>
+<li><a href="#1.1">Task &ndash; First Iteration</a></li>
+<li><a href="#1.2">Discussion of First Iteration</a></li>
+<li><a href="#1.3">No Nested Families</a></li>
+<li><a href="#1.4">Handling Nested Families</a></li>
+<li><a href="#2">Second Iteration &ndash; Export FamilyInstance Geometry as FamilySymbol Plus Translation</a></li>
+</ul>
+<h2><a name="1.1"></a>Task &ndash; First Iteration</h2>
 <p>Export element triangles.</p>
 <p>Given the currently selected element, export exhaustive information about its geometry to JSON, e.g., to <code>element.json</code>, like this:</p>
 <p><code>{ "element_id": "d7a856d0-2e09-4ca6-83b0-9e7a18885b28-0012c5cf-1",
@@ -11,7 +18,7 @@
 <p><code>{ "rotation_matrix": [1,0,0,0,1,0,0,0,1], "translation": [1,2,3], ... }</code></p>
 <p>such that, given family_symbol.json and translation.json, we can recreate element.json.</p>
 <p>Note that we need to support all types of faces (just triangulate them).</p>
-<h2>Discussion</h2>
+<h2><a name="1.2"></a>Discussion of First Iteration</h2>
 <p>So, we implement the export of both element geometry and the transformed family definition geometry, all of the files mentioned above?</p>
 <p>So, we export all types of faces, triangulated.</p>
 <p>How about curves? Do they need to be supported at all, or can they just be ignored? &ndash; let's ignore them for now.</p>
@@ -39,12 +46,12 @@ the <a href="https://github.com/jeremytammik/TwglExport">tiny WebGL exporter</a>
 </ul>
 <p>For a production scenario, one should rather go for the custom exporter solution, not select an individual element.</p>
 <p>I also ((over-?) optimisticaly) believe that the custom exporter helps automatically solve the issue of differentiating between family instances that require individual geometry versus those that can reuse the symbol geometry.</p>
-<h2>No Nested Families</h2>
+<h2><a name="1.3"></a>No Nested Families</h2>
 <p>The first version of the per-element exporter is completed and tested in release 2020.0.0.1.</p>
 <p>It only supports symbols one level deep.</p>
 <p>It has assertions built in that fire if you try to use it on more nested family definitions.</p>
 <p>We will have to completely reconsider and rethink the situation if that case needs to be handled also.</p>
-<h2>Handling Nested Families</h2>
+<h2><a name="1.4"></a>Handling Nested Families</h2>
 <p>Here is an idea on how to handle nested family instances:</p>
 <p>Only support symbol definitions one level deep.</p>
 <p>Any symbols that are nested within a top-level symbol are subsumed into the top-level symbol.
@@ -56,7 +63,7 @@ Further, assume D defines a type == symbol D1, and H defines two types H1 and H2
 Assume the project contains three instances: D1 with H1 and D1 with H2.
 This will generate two symbol definitions for D1.
 How do we identify them, how to tell them apart?</p>
-<h2>Export FamilyInstance Geometry as FamilySymbol Plus Translation</h2>
+<h2><a name="2"></a>Second Iteration &ndash; Export FamilyInstance Geometry as FamilySymbol Plus Translation</h2>
 <p>Let's make a new start with a new command based on the experience gathered from the first attempt.</p>
 <p>The goal is to export the geometric information about a specific element.</p>
 <p>The command is launched by selecting a specific FamilyInstance and clicking "export geometry".</p>
@@ -80,8 +87,8 @@ information regarding the translation of the specific element to reach its</li>
 <li>Please do not export the vertices separately from their indices. Although I understand the value of that, it makes the code less clear at this point.</li>
 <li>The code should work for elements in linked models as well.</li>
 </ul>
-<h2>Author</h2>
+<h2><a name="author"></a>Author</h2>
 <p>Jeremy Tammik, <a href="http://thebuildingcoder.typepad.com">The Building Coder</a>, <a href="http://www.autodesk.com/adn">ADN</a> <a href="http://www.autodesk.com/adnopen">Open</a>, <a href="http://www.autodesk.com">Autodesk Inc.</a></p>
-<h2>License</h2>
+<h2><a name="license"></a>License</h2>
 <p>This sample is licensed under the terms of the <a href="http://opensource.org/licenses/MIT">MIT License</a>.
 Please see the <a href="LICENSE">LICENSE</a> file for full details.</p>

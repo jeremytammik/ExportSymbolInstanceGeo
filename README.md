@@ -6,7 +6,7 @@ Revit C# .NET add-in that exports selected element symbol and instance geometry 
 - [Discussion of First Iteration](#1.2)
 - [No Nested Families](#1.3)
 - [Handling Nested Families](#1.4)
-- [Second Iteration &ndash; Export FamilyInstance Geometry as FamilySymbol Plus Translation](#2)
+- [Second Iteration &ndash; Export FamilyInstance Geometry as FamilySymbol plus Translation](#2)
 
 
 ## <a name="1.1"></a>Task &ndash; First Iteration
@@ -107,7 +107,7 @@ This will generate two symbol definitions for D1.
 How do we identify them, how to tell them apart?
 
 
-## <a name="2"></a>Second Iteration &ndash; Export FamilyInstance Geometry as FamilySymbol Plus Translation
+## <a name="2"></a>Second Iteration &ndash; Export FamilyInstance Geometry as FamilySymbol plus Translation
 
 Let's make a new start with a new command based on the experience gathered from the first attempt.
 
