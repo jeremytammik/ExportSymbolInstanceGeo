@@ -111,11 +111,15 @@ The command is launched by selecting a specific FamilyInstance and clicking "exp
 
 Export 3 files (suggested format attached):
 
-- `family_instance_geometry.json` - exhaustive information regarding the geometry of the instance. See the attached "example_export.cs" for suggested traversal code. 
-- `family_symbol_geometry.json` - exhaustive information regarding the general family symbol
-- `family_instance_translation_info.json` - information regarding the translation of the specific element to reach its
+- [family_instance_geometry.json](example/family_instance_geometry.json) &ndash;
+exhaustive information regarding the geometry of the instance. See the attached
+[example_export.cs](example/example_export.cs) for suggested traversal code. 
+- [family_symbol_geometry.json](example/family_symbol_geometry.json) &ndash;
+exhaustive information regarding the general family symbol
+- [family_instance_translation_info.json](example/family_instance_translation_info.json) &ndash;
+information regarding the translation of the specific element to reach its
 
-Also create the code that can take `family_symbol_geometry` + `family_instance_translation_info` and create the `family_instance_geometry` file.
+Also implement code that can take `family_symbol_geometry` + `family_instance_translation_info` and create the `family_instance_geometry` file from it.
 
 Notes:
 
@@ -125,14 +129,6 @@ Notes:
 - No need to support other types of geometries (PolyLine, Point, Curve, ...). Just Solid and Mesh.
 - Please do not export the vertices separately from their indices. Although I understand the value of that, it makes the code less clear at this point.
 - The code should work for elements in linked models as well.
-
-Attachments:
-
-- example_export.cs
-- family_instance_geometry.json
-- family_symbol_geometry.json
-- family_instance_translation_info.json
-
 
 
 ## Author
