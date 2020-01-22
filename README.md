@@ -117,12 +117,12 @@ The command is launched by selecting a specific FamilyInstance and clicking "exp
 
 Export 3 files (suggested format attached):
 
-- [family_instance_geometry.json](example/family_instance_geometry.json) &ndash;
+- [instance_geometry.json](example/instance_geometry.json) &ndash;
 exhaustive information regarding the geometry of the instance. See the attached
 [example_export.cs](example/example_export.cs) for suggested traversal code. 
-- [family_symbol_geometry.json](example/family_symbol_geometry.json) &ndash;
+- [symbol_geometry.json](example/symbol_geometry.json) &ndash;
 exhaustive information regarding the general family symbol
-- [family_instance_translation_info.json](example/family_instance_translation_info.json) &ndash;
+- [instance_transform.json](example/instance_transform.json) &ndash;
 information regarding the translation of the specific element to reach its
 
 Also implement code that can take `family_symbol_geometry` + `family_instance_translation_info` and create the `family_instance_geometry` file from it.

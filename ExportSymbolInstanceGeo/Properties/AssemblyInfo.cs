@@ -54,6 +54,7 @@ using System.Runtime.InteropServices;
 // 2019-12-11 2020.0.0.4 append to output file for testing purposes
 // 2019-12-11 2020.0.0.4 implemented and tested nested families
 // 2020-01-22 2020.0.1.0 started working on iteration number two
+// 2020-01-22 2020.0.1.0 clarified output filenames
 //
 [assembly: AssemblyVersion( "2020.0.1.0" )]
 [assembly: AssemblyFileVersion( "2020.0.1.0" )]
