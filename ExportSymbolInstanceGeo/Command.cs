@@ -23,7 +23,7 @@ namespace ExportSymbolInstanceGeo
     const string _dir = "C:/tmp/";
     const string _fn_instance_geo = _dir + "instance_geometry" + _ext;
     const string _fn_symbol_geo = _dir + "symbol_geometry" + _ext;
-    const string _fn_symbol_xform = _dir + "symbol_transform" + _ext;
+    const string _fn_instance_xform = _dir + "instance_transform" + _ext;
 
     /// <summary>
     /// User interface usage prompt string
