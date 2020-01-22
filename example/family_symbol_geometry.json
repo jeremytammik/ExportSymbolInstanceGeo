@@ -1,0 +1,28 @@
+{
+    "element_id": "d7a856d0-2e09-4ca6-83b0-9e7a18885b28-0012c5cf-1",
+    "solids": [
+        {
+            "faces": [
+                {
+                    "triangles": [
+                        {
+                            "/": "these are the 3 coordinates of the 3 vertices of the triangle. The order doesn't matter as long as its consistent",
+                            "coords": [
+                                10, 11, 12,
+                                1, 2, 3,
+                                21, 22, 23
+                            ]
+                        },
+                        {
+                            "coords": [
+                                14, 11, 12,
+                                1, 2, 3,
+                                21, 22, 23
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

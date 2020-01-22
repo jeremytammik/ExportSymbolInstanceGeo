@@ -1,0 +1,13 @@
+{
+    "rotation_matrix": [
+        1, 0, 0,
+        0, 1, 0,
+        0, 0, 1
+    ],
+    "translation": [
+        1,
+        2,
+        3
+    ],
+    "maybe_other_information_needed": {}
+}
