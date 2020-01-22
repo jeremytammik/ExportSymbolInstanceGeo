@@ -17,10 +17,13 @@ namespace ExportSymbolInstanceGeo
   public class Command : IExternalCommand
   {
     /// <summary>
-    /// JSON output file path
+    /// JSON output file directory and paths
     /// </summary>
-    public const string _filepath
-      = "C:/tmp/element_triangles.json";
+    const string _ext = ".json";
+    const string _dir = "C:/tmp/";
+    const string _fn_instance_geo = _dir + "instance_geometry" + _ext;
+    const string _fn_symbol_geo = _dir + "symbol_geometry" + _ext;
+    const string _fn_symbol_xform = _dir + "symbol_transform" + _ext;
 
     /// <summary>
     /// User interface usage prompt string
