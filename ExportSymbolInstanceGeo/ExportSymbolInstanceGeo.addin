@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <RevitAddIns>
   <AddIn Type="Command">
-    <Text>Command ExportSymbolInstanceGeo</Text>
-    <Description>Some description for ExportSymbolInstanceGeo</Description>
+    <Text>ExportSymbolInstanceGeo</Text>
+    <Description>Export FamilyInstance geometry as FamilySymbol plus translation</Description>
     <Assembly>ExportSymbolInstanceGeo.dll</Assembly>
     <FullClassName>ExportSymbolInstanceGeo.Command</FullClassName>
     <ClientId>11029e90-356f-45e4-a92b-49b7492e619a</ClientId>

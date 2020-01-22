@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration( "" )]
 [assembly: AssemblyCompany( "Autodesk Inc." )]
 [assembly: AssemblyProduct( "ExportSymbolInstanceGeo Revit C# .NET Add-In" )]
-[assembly: AssemblyCopyright( "Copyright 2019 (C) Jeremy Tammik, Autodesk Inc." )]
+[assembly: AssemblyCopyright( "Copyright 2019-2020 (C) Jeremy Tammik, Autodesk Inc." )]
 [assembly: AssemblyTrademark( "" )]
 [assembly: AssemblyCulture( "" )]
 
@@ -53,6 +53,7 @@ using System.Runtime.InteropServices;
 // 2019-12-11 2020.0.0.3 suppress symbol triangles and transformation when nested
 // 2019-12-11 2020.0.0.4 append to output file for testing purposes
 // 2019-12-11 2020.0.0.4 implemented and tested nested families
+// 2020-01-22 2020.0.1.0 started working on iteration number two
 //
-[assembly: AssemblyVersion( "2020.0.0.4" )]
-[assembly: AssemblyFileVersion( "2020.0.0.4" )]
+[assembly: AssemblyVersion( "2020.0.1.0" )]
+[assembly: AssemblyFileVersion( "2020.0.1.0" )]
