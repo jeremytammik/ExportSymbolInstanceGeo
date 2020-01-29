@@ -1,12 +1,12 @@
 {
-"element_uid" : "56e29b1b-5612-40cf-839e-6fb0c46ecf36-0004f5e0",
+"element_uid" : "012ea8bd-3d4e-4783-8c4c-c413f76df241-0004f626",
 "symbol_uid" : "066e0953-4a47-4c59-836c-077bd8dd25df-0000d1c4",
-"symbol_rotation" : [-0.9816 0.1908 0, -0.1908 -0.9816 0, 0 0 1],
-"symbol_translation" : [-1935,3285,0]
+"symbol_rotation" : [-0.9816,0.1908,0, -0.1908,-0.9816,0, 0,0,1],
+"symbol_translation" : [1010,2713,0]
 }
 {
-"element_uid" : "73b6ff47-8dee-459c-99fc-d483df87ccc3-0004f626",
+"element_uid" : "56e29b1b-5612-40cf-839e-6fb0c46ecf36-0004f5e0",
 "symbol_uid" : "066e0953-4a47-4c59-836c-077bd8dd25df-0000d1c4",
-"symbol_rotation" : [-0.9816 0.1908 0, -0.1908 -0.9816 0, 0 0 1],
-"symbol_translation" : [716,2770,0]
+"symbol_rotation" : [-0.9816,0.1908,0, -0.1908,-0.9816,0, 0,0,1],
+"symbol_translation" : [-1935,3285,0]
 }
