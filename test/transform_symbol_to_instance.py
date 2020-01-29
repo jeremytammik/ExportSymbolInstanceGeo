@@ -26,7 +26,26 @@ with open("instance_geometry.json") as f:
 symbol_solids = dsymbol['solids']
 instance_solids = dinstance['solids']
 
-print('%d symbol and %d instance solids' % (len(symbol_solids), len(instance_solids)))
+nsolids = len(symbol_solids)
+
+print('%d symbol and %d instance solids' % (nsolids, len(instance_solids)))
+
+for i in range(nsolids):
+  solsym = symbol_solids[i]
+  solinst = instance_solids[i]
+  nfaces = len(solsym)
+  print('%d symbol and %d instance faces' % (nfaces, len(solinst)))
+  for j in range(nfaces):
+    fsym = solsym[j]
+    finst = solinst[j]
+    ntriangles = len(fsym)
+    print('%d symbol and %d instance triangles' % (ntriangles, len(finst)))
+    for k in range(ntriangles):
+      print (k)
+    
+    
+
+  
 
 #p=[-140,223,978]
 #print(matrix44.apply_to_vector(matrix, p))
