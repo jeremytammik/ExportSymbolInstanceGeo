@@ -95,10 +95,10 @@ namespace ExportSymbolInstanceGeo
 
     bool _uses_instance_geometry;
     IntVertexLookup _vertices;
-    List<JtSolid> _instance_solids;
     List<JtFace> _instance_meshes;
-    List<JtSolid> _symbol_solids;
+    List<JtSolid> _instance_solids;
     List<JtFace> _symbol_meshes;
+    List<JtSolid> _symbol_solids;
     Transform _symbol_transform;
     List<Transform> _transformations;
     int _max_nesting_level;
@@ -338,17 +338,17 @@ namespace ExportSymbolInstanceGeo
           .UsesInstanceGeometry( fi );
 
       _vertices = new IntVertexLookup();
-      _instance_solids = new List<JtSolid>();
       _instance_meshes = new List<JtFace>();
-      _symbol_solids = new List<JtSolid>();
+      _instance_solids = new List<JtSolid>();
       _symbol_meshes = new List<JtFace>();
+      _symbol_solids = new List<JtSolid>();
       _symbol_transform = null;
       _transformations = null;
       _max_nesting_level = 0;
 
       DrawElement( e );
 
-      Debug.Assert( (0 == _max_nesting_level) || (null == fi), 
+      Debug.Assert( (0 == _max_nesting_level) ^ (null != fi), 
         "expected zero symbol nesting for non-family-instance" );
     }
 
@@ -379,6 +379,22 @@ namespace ExportSymbolInstanceGeo
 
     /// <summary>
     /// Return a JSON string representing
+    /// the list of instance meshes
+    /// </summary>
+    public string InstanceMeshesJson
+    {
+      get
+      {
+        return string.Format(
+          "\"meshes\": [ {0} ]",
+          string.Join( ", ",
+            _instance_meshes.Select<JtFace, string>( f
+              => f.ToJson( _vertices ) ) ) );
+      }
+    }
+
+    /// <summary>
+    /// Return a JSON string representing
     /// the list of instance solids
     /// </summary>
     public string InstanceSolidsJson
@@ -397,15 +413,31 @@ namespace ExportSymbolInstanceGeo
     /// Return a JSON string representing
     /// the list of instance meshes
     /// </summary>
-    public string InstanceMeshesJson
+    public string SymbolMeshesJson
     {
       get
       {
         return string.Format(
           "\"meshes\": [ {0} ]",
           string.Join( ", ",
-            _instance_meshes.Select<JtFace, string>( f
+            _symbol_meshes.Select<JtFace, string>( f
               => f.ToJson( _vertices ) ) ) );
+      }
+    }
+
+    /// <summary>
+    /// Return a JSON string representing
+    /// the list of instance solids
+    /// </summary>
+    public string SymbolSolidsJson
+    {
+      get
+      {
+        return string.Format(
+          "\"solids\": [ {0} ]",
+          string.Join( ", ",
+            _symbol_solids.Select<JtSolid, string>( s
+              => s.ToJson( _vertices ) ) ) );
       }
     }
 

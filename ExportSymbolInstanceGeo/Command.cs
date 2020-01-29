@@ -73,17 +73,25 @@ namespace ExportSymbolInstanceGeo
         = new TriangleCollector( e );
 
       const string json_format_str = "\"{0}\" : \"{1}\"";
-      //const string json_format_arr = "\"{0}\" : [{1}]";
 
       List<string> lines = new List<string>();
 
-      // Export instance solid face and triangle coordinates
+      // Export instance geometry solid, mesh, 
+      // face and triangle coordinates
 
       lines.Add( string.Format( json_format_str, 
         "element_uid", e.UniqueId ) );
 
       lines.Add( triangulator.InstanceMeshesJson );
       lines.Add( triangulator.InstanceSolidsJson );
+
+      lines.Add( string.Format( json_format_str,
+        "has_symbol", triangulator.HasSymbol
+          ? "true" : "false" ) );
+
+      lines.Add( string.Format( json_format_str,
+        "symbol_is_nested", triangulator.IsNested 
+          ? "true" : "false" ) );
 
       using( StreamWriter s = new StreamWriter(
         _fn_instance_geo, true ) )
@@ -96,36 +104,44 @@ namespace ExportSymbolInstanceGeo
         s.Close();
       }
 
-      /*
-            if( triangulator.HasSymbol )
-            {
-              Debug.Assert( e is FamilyInstance, 
-                "expected only family instance to have symbol geometry" );
+      if( triangulator.HasSymbol && !triangulator.IsNested )
+      {
+        Debug.Assert( e is FamilyInstance, 
+          "expected only family instance to have symbol geometry" );
 
-              lines.Add( string.Format( json_format_str, "symbol_uid", 
-                (e as FamilyInstance).Symbol.UniqueId ) );
+        lines.Clear();
 
-              if( triangulator.IsNested )
-              {
-                lines.Add( string.Format( json_format_str,
-                "symbol_is_nested", "true" ) );
-              }
-              else
-              {
-                lines.Add( string.Format( json_format_arr,
-                "symbol_rotation", triangulator.SymbolRotation ) );
+        lines.Add( string.Format( json_format_str,
+          "element_uid", e.UniqueId ) );
 
-                lines.Add( string.Format( json_format_arr,
-                  "symbol_translation", 
-                  triangulator.SymbolTranslation ) );
+        lines.Add( string.Format( json_format_str,
+          "symbol_uid", 
+          (e as FamilyInstance).Symbol.UniqueId ) );
 
-                lines.Add( string.Format( json_format_arr,
-                  "symbol_triangle_indices", 
-                  triangulator.SymbolTriangleIndices ) );
-              }
-            }
-            */
+        const string json_format_arr = "\"{0}\" : [{1}]";
 
+        lines.Add( string.Format( json_format_arr,
+          "symbol_rotation", 
+          triangulator.SymbolRotation ) );
+
+        lines.Add( string.Format( json_format_arr,
+          "symbol_translation", 
+          triangulator.SymbolTranslation ) );
+
+        lines.Add( triangulator.SymbolMeshesJson );
+        lines.Add( triangulator.SymbolSolidsJson );
+
+        using( StreamWriter s = new StreamWriter(
+          _fn_instance_xform, true ) )
+        {
+          string a = "{\r\n"
+            + string.Join( ",\r\n", lines )
+            + "\r\n}\r\n";
+
+          s.Write( a );
+          s.Close();
+        }
+      }
       return Result.Succeeded;
     }
   }

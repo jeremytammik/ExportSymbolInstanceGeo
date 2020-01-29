@@ -63,6 +63,8 @@ using System.Runtime.InteropServices;
 // 2020-01-29 2020.0.1.1 implemented first test output with instance inline vertex coordinates of solid and mesh geometry
 // 2020-01-29 2020.0.1.1 removed extraneous curly braces
 // 2020-01-29 2020.0.1.1 instance geometry export looks good
+// 2020-01-29 2020.0.1.2 implemented output of symbol geometry and transformation
+// 2020-01-29 2020.0.1.2 successful test of family symbol export, fixed assertion
 //
-[assembly: AssemblyVersion( "2020.0.1.1" )]
-[assembly: AssemblyFileVersion( "2020.0.1.1" )]
+[assembly: AssemblyVersion( "2020.0.1.2" )]
+[assembly: AssemblyFileVersion( "2020.0.1.2" )]
