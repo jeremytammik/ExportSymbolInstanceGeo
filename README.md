@@ -6,7 +6,8 @@ Revit C# .NET add-in that exports selected element symbol and instance geometry 
 - [Discussion of First Iteration](#1.2)
 - [No Nested Families](#1.3)
 - [Handling Nested Families](#1.4)
-- [Second Iteration &ndash; Export FamilyInstance Geometry as FamilySymbol plus Translation](#2)
+- [Second Iteration Task &ndash; Export FamilyInstance Geometry as FamilySymbol plus Translation](#2)
+- [Second Iteration Result](#2.1)
 
 
 ## <a name="1.1"></a>Task &ndash; First Iteration
@@ -107,7 +108,7 @@ This will generate two symbol definitions for D1.
 How do we identify them, how to tell them apart?
 
 
-## <a name="2"></a>Second Iteration &ndash; Export FamilyInstance Geometry as FamilySymbol plus Translation
+## <a name="2"></a>Second Iteration Task &ndash; Export FamilyInstance Geometry as FamilySymbol plus Translation
 
 Let's make a new start based on the experience gathered from the first attempt.
 
@@ -137,6 +138,27 @@ Notes:
 - No need to support other types of geometries (PolyLine, Point, Curve, ...). Just Solid and Mesh.
 - Please do not export the vertices separately from their indices. Although I understand the value of that, it makes the code less clear at this point.
 - The code should work for elements in linked models as well.
+
+## <a name="2.1"></a>Second Iteration Result
+
+For a selected element, the external command now successfully exports three files:
+
+- [instance_geometry.json](test/instance_geometry.json)
+- [instance_transform.json](test/instance_transform.json)
+- [symbol_geometry.json](test/symbol_geometry.json)
+
+The latter two are only generated for `FamilyInstance` elements that make use of unmodified symbol geometry.
+
+Thelatter-most is completely independent of the selected family instance.
+Different family instances using the same symbol generate identical copies of `symbol_geometry.json`.
+
+A Python test script reads the three output files and tests that the instance transform applied to the symbol geometry produces the exact same  instance geometry, within the integer-based millimetre coordinates' rounding precision:
+
+- [transform_symbol_to_instance.py](test/transform_symbol_to_instance.py)
+
+It makes use of
+the [Pyrr 3D mathematical functions using NumPy](https://github.com/adamlwgriffiths/Pyrr) for
+matrix multiplication to implement the required transformations.
 
 
 ## <a name="author"></a>Author
