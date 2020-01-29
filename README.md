@@ -149,8 +149,11 @@ For a selected element, the external command now successfully exports three file
 
 The latter two are only generated for `FamilyInstance` elements that make use of unmodified symbol geometry.
 
-Thelatter-most is completely independent of the selected family instance.
+The latter-most is completely independent of the selected family instance.
 Different family instances using the same symbol generate identical copies of `symbol_geometry.json`.
+
+The JSON format has been simplified and streamlined in all three to represent all 3D points, vectors and matrix columns as proper JSON subarrays, and remove the superfluous dictionary structure within the solid list of faces and face list of triagles.
+They are now just stored as simple lists.
 
 A Python test script reads the three output files and tests that the instance transform applied to the symbol geometry produces the exact same  instance geometry, within the integer-based millimetre coordinates' rounding precision:
 
