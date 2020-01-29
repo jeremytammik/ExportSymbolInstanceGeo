@@ -258,13 +258,17 @@ namespace ExportSymbolInstanceGeo
         }
         else if( obj is Solid )
         {
-          JtSolid sInstance;
-          JtSolid sSymbol;
-          GetSolid( obj as Solid, out sInstance, out sSymbol );
-          _instance_solids.Add( sInstance );
-          if( InSymbol )
+          Solid s = obj as Solid;
+          if( 0 < s.Faces.Size )
           {
-            _symbol_solids.Add( sSymbol );
+            JtSolid sInstance;
+            JtSolid sSymbol;
+            GetSolid( s, out sInstance, out sSymbol );
+            _instance_solids.Add( sInstance );
+            if( InSymbol )
+            {
+              _symbol_solids.Add( sSymbol );
+            }
           }
         }
       }
