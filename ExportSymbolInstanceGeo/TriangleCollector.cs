@@ -30,6 +30,20 @@ namespace ExportSymbolInstanceGeo
       {
         return string.Format( "{0} {1} {2}", A, B, C );
       }
+
+      /// <summary>
+      /// Return a JSON string with the comma-separated 
+      /// coordinates of the three triangle vertices
+      /// </summary>
+      public string ToJsonCoords( 
+        IntVertexLookup vertices )
+      {
+        return string.Format( 
+          "{{\"coords\": [ {0}, {1}, {2} ] }}",
+          vertices[A].ToJsonCoords(), 
+          vertices[B].ToJsonCoords(), 
+          vertices[C].ToJsonCoords() );
+      }
     }
     #endregion // Triangle indices
 

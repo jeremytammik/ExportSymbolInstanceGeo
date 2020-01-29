@@ -77,6 +77,8 @@ namespace ExportSymbolInstanceGeo
 
       List<string> lines = new List<string>();
 
+      // Export instance solid face and triangle coordinates
+
       lines.Add( string.Format( json_format_str, 
         "element_uid", e.UniqueId ) );
 

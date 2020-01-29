@@ -111,7 +111,15 @@ namespace ExportSymbolInstanceGeo
         return hash;
       }
     }
-    
+
+    /// <summary>
+    /// Return as a comma-separated string.
+    /// </summary>
+    public string ToJsonCoords()
+    {
+      return string.Format( "{0},{1},{2}", X, Y, Z );
+    }
+
     /// <summary>
     /// Display as a string.
     /// </summary>

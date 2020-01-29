@@ -27,6 +27,14 @@ namespace ExportSymbolInstanceGeo
       return this[ p ];
     }
 
+    public IntPoint3d this[ int i ]
+    {
+      get
+      {
+        return _vertex_list[i];
+      }
+    }
+
     //public List<IntPoint3d> VerticesInOrder
     //{
     //  get { return _vertex_list; }
