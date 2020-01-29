@@ -129,7 +129,7 @@ Also implement code that can take `family_symbol_geometry` + `family_instance_tr
 
 Notes:
 
-- If the instance has sub-elements, skip it.
+- If the instance has nested sub-elements, skip it.
 - Work only on the currently selected element (obviously, it will be modified to work on all elements later).
 - Need to support all types of faces (just triangulate them using `face.Triangulate(LevelOfDetail)`).
 - No need to support other types of geometries (PolyLine, Point, Curve, ...). Just Solid and Mesh.

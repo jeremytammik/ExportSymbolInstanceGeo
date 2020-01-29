@@ -591,6 +591,9 @@ namespace ExportSymbolInstanceGeo
       _transformations = null;
       _max_nesting_level = 0;
       DrawElement( e );
+
+      Debug.Assert( (0 == _max_nesting_level) || (null == fi), 
+        "expected zero symbol nesting for non-family-instance" );
     }
 
     #region Public output data accessors
@@ -625,6 +628,14 @@ namespace ExportSymbolInstanceGeo
       get
       {
         return 1 < _max_nesting_level;
+      }
+    }
+
+    public int MaxNestingLevel
+    {
+      get
+      {
+        return _max_nesting_level;
       }
     }
 
