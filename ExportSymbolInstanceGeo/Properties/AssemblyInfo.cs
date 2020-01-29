@@ -56,7 +56,8 @@ using System.Runtime.InteropServices;
 // 2020-01-22 2020.0.1.0 started working on iteration number two
 // 2020-01-22 2020.0.1.0 clarified output filenames
 // 2020-01-29 2020.0.1.0 added call to ExporterIFCUtils.UsesInstanceGeometry
-// 2020-01-29 2020.0.1.0 implement separate output files with inline vertex coordinates
+// 2020-01-29 2020.0.1.1 removed all line and curve stuff, rerwrote to retain solid-face-triangle hierarchy
+// 2020-01-29 2020.0.1.1 todo: implement separate output files with inline vertex coordinates
 //
-[ assembly: AssemblyVersion( "2020.0.1.0" )]
-[assembly: AssemblyFileVersion( "2020.0.1.0" )]
+[assembly: AssemblyVersion( "2020.0.1.1" )]
+[assembly: AssemblyFileVersion( "2020.0.1.1" )]
