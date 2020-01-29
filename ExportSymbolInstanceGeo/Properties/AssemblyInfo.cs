@@ -62,6 +62,7 @@ using System.Runtime.InteropServices;
 // 2020-01-29 2020.0.1.1 implemented InstanceMeshesJson and InstanceSolidsJson
 // 2020-01-29 2020.0.1.1 implemented first test output with instance inline vertex coordinates of solid and mesh geometry
 // 2020-01-29 2020.0.1.1 removed extraneous curly braces
+// 2020-01-29 2020.0.1.1 instance geometry export looks good
 //
 [assembly: AssemblyVersion( "2020.0.1.1" )]
 [assembly: AssemblyFileVersion( "2020.0.1.1" )]
