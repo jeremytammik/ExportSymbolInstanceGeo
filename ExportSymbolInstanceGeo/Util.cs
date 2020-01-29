@@ -36,6 +36,9 @@ namespace ExportSymbolInstanceGeo
         RealString( p.Z ) );
     }
 
+    /// <summary>
+    /// Append the given lines to a JSON file
+    /// </summary>
     public static void WriteJsonFile( 
       string path,
       IList<string> lines )
