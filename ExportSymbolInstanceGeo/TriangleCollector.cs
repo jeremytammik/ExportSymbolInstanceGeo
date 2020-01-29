@@ -55,6 +55,20 @@ namespace ExportSymbolInstanceGeo
     class JtFace : List<JtTriangle>
     {
       public JtFace(int capacity) : base( capacity ) { }
+
+      /// <summary>
+      /// Return a JSON string representing
+      /// the list of face triangles
+      /// </summary>
+      public string ToJson(
+        IntVertexLookup vertices )
+      {
+        return string.Format(
+          "{{\"triangles\": [ {0} ] }}",
+          string.Join( ", ",
+            this.Select<JtTriangle, string>( t
+              => t.ToJsonCoords( vertices ) ) ) );
+      }
     }
     #endregion // JtFace
 
@@ -62,6 +76,20 @@ namespace ExportSymbolInstanceGeo
     class JtSolid : List<JtFace>
     {
       public JtSolid( int capacity ) : base( capacity ) { }
+
+      /// <summary>
+      /// Return a JSON string representing
+      /// the list of faces
+      /// </summary>
+      public string ToJson(
+        IntVertexLookup vertices )
+      {
+        return string.Format(
+          "{{\"faces\": [ {0} ] }}",
+          string.Join( ", ",
+            this.Select<JtFace, string>( f
+              => f.ToJson( vertices ) ) ) );
+      }
     }
     #endregion // JtSolid
 
@@ -349,13 +377,35 @@ namespace ExportSymbolInstanceGeo
       }
     }
 
-    public string SymbolJtTriangle
+    /// <summary>
+    /// Return a JSON string representing
+    /// the list of instance solids
+    /// </summary>
+    public string InstanceSolidsJson
     {
       get
       {
-        return string.Join( " ",
-          _symbol_triangles.Select(
-            t => t.ToString() ) );
+        return string.Format(
+          "{{\"solids\": [ {0} ] }}",
+          string.Join( ", ",
+            _instance_solids.Select<JtSolid, string>( s
+              => s.ToJson( _vertices ) ) ) );
+      }
+    }
+
+    /// <summary>
+    /// Return a JSON string representing
+    /// the list of instance meshes
+    /// </summary>
+    public string InstanceMeshesJson
+    {
+      get
+      {
+        return string.Format(
+          "{{\"meshes\": [ {0} ] }}",
+          string.Join( ", ",
+            _instance_meshes.Select<JtFace, string>( f
+              => f.ToJson( _vertices ) ) ) );
       }
     }
 
