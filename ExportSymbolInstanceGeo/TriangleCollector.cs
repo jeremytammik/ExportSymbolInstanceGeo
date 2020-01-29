@@ -353,8 +353,11 @@ namespace ExportSymbolInstanceGeo
 
       DrawElement( e );
 
-      Debug.Assert( (0 == _max_nesting_level) ^ (null != fi), 
+      Debug.Assert( (0 == _max_nesting_level) ^ (null != fi),
         "expected zero symbol nesting for non-family-instance" );
+
+      Debug.Assert( _uses_instance_geometry == HasSymbol, 
+        "expected instance using symbol to have a symbol" );
     }
 
     #region Public output data accessors

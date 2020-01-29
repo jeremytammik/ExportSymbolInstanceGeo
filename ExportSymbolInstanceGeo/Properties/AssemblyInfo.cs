@@ -72,6 +72,7 @@ using System.Runtime.InteropServices;
 // 2020-01-29 2020.0.1.3 remove duplicate brackets around translation
 // 2020-01-29 2020.0.1.3 skip empty solids
 // 2020-01-29 2020.0.1.4 scrap useless json subdictionaries
+// 2020-01-29 2020.0.1.5 added UsesInstanceGeometry assertion
 //
-[assembly: AssemblyVersion( "2020.0.1.4" )]
-[assembly: AssemblyFileVersion( "2020.0.1.4" )]
+[assembly: AssemblyVersion( "2020.0.1.5" )]
+[assembly: AssemblyFileVersion( "2020.0.1.5" )]
