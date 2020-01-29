@@ -90,7 +90,7 @@ namespace ExportSymbolInstanceGeo
       {
         string a = "{\r\n"
           + string.Join( ",\r\n", lines )
-          + "\r\n}";
+          + "\r\n}\r\n";
 
         s.Write( a );
         s.Close();
