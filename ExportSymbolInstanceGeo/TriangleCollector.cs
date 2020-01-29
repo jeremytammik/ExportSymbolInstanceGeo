@@ -386,7 +386,7 @@ namespace ExportSymbolInstanceGeo
       get
       {
         return string.Format(
-          "{{\"solids\": [ {0} ] }}",
+          "\"solids\": [ {0} ]",
           string.Join( ", ",
             _instance_solids.Select<JtSolid, string>( s
               => s.ToJson( _vertices ) ) ) );
@@ -402,7 +402,7 @@ namespace ExportSymbolInstanceGeo
       get
       {
         return string.Format(
-          "{{\"meshes\": [ {0} ] }}",
+          "\"meshes\": [ {0} ]",
           string.Join( ", ",
             _instance_meshes.Select<JtFace, string>( f
               => f.ToJson( _vertices ) ) ) );
