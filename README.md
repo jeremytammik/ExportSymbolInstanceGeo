@@ -109,7 +109,7 @@ How do we identify them, how to tell them apart?
 
 ## <a name="2"></a>Second Iteration &ndash; Export FamilyInstance Geometry as FamilySymbol plus Translation
 
-Let's make a new start with a new command based on the experience gathered from the first attempt.
+Let's make a new start based on the experience gathered from the first attempt.
 
 The goal is to export the geometric information about a specific element.
 

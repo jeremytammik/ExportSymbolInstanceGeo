@@ -44,6 +44,7 @@ namespace ExportSymbolInstanceGeo
     }
     #endregion // Line and triangle indices
 
+    bool _uses_instance_geometry;
     IntVertexLookup _vertices;
     List<LineSegmentIndices> _lines;
     List<TriangleIndices> _instance_triangles;
@@ -576,6 +577,12 @@ namespace ExportSymbolInstanceGeo
     /// </summary>
     public TriangleCollector( Element e )
     {
+      FamilyInstance fi = e as FamilyInstance;
+      _uses_instance_geometry = (null == fi)
+        ? false 
+        : Autodesk.Revit.DB.IFC.ExporterIFCUtils
+          .UsesInstanceGeometry( fi );
+
       _vertices = new IntVertexLookup();
       _lines = new List<LineSegmentIndices>();
       _instance_triangles = new List<TriangleIndices>();
