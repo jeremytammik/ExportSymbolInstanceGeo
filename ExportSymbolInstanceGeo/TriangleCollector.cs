@@ -446,9 +446,9 @@ namespace ExportSymbolInstanceGeo
       get
       {
         Transform t = _symbol_transform;
-        return Util.PointString( t.BasisX, true )
-          + " " + Util.PointString( t.BasisY, true )
-          + " " + Util.PointString( t.BasisZ, true );
+        return Util.PointString( t.BasisX, true, false )
+          + ", " + Util.PointString( t.BasisY, true, false )
+          + ", " + Util.PointString( t.BasisZ, true, false );
       }
     }
 
@@ -459,7 +459,7 @@ namespace ExportSymbolInstanceGeo
         IntPoint3d origin = new IntPoint3d( 
           _symbol_transform.Origin );
 
-        return origin.ToString( true );
+        return origin.ToJsonCoords();
       }
     }
     #endregion // Public output data accessors

@@ -24,11 +24,17 @@ namespace ExportSymbolInstanceGeo
     /// </summary>
     public static string PointString(
       XYZ p,
-      bool onlySpaceSeparator = false )
+      bool onlySpaceSeparator = false,
+      bool enclosingParenthesis = true )
     {
       string format_string = onlySpaceSeparator
         ? "{0} {1} {2}"
-        : "({0},{1},{2})";
+        : "{0},{1},{2}";
+
+      if( enclosingParenthesis )
+      {
+        format_string = "(" + format_string + ")";
+      }
 
       return string.Format( format_string,
         RealString( p.X ),
