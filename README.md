@@ -125,6 +125,8 @@ exhaustive information regarding the general family symbol
 - [instance_transform.json](example/instance_transform.json) &ndash;
 information regarding the translation of the specific element to reach its
 
+Existing files are appended to, not overwerittten.
+
 Also implement code that can take `family_symbol_geometry` + `family_instance_translation_info` and create the `family_instance_geometry` file from it.
 
 Notes:
