@@ -69,6 +69,7 @@ using System.Runtime.InteropServices;
 // 2020-01-29 2020.0.1.3 comma separated rotation and translation coords to conform to json
 // 2020-01-29 2020.0.1.3 comma separated rotation coords
 // 2020-01-29 2020.0.1.3 return triples enclosed in square brackets as JSON arrays
+// 2020-01-29 2020.0.1.3 remove duplicate brackets around translation
 //
 [assembly: AssemblyVersion( "2020.0.1.3" )]
 [assembly: AssemblyFileVersion( "2020.0.1.3" )]

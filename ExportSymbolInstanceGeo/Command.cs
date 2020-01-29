@@ -110,7 +110,7 @@ namespace ExportSymbolInstanceGeo
           "symbol_uid",
           (e as FamilyInstance).Symbol.UniqueId ) );
 
-        const string json_format_arr = "\"{0}\" : [{1}]";
+        const string json_format_arr = "\"{0}\" : {1}";
 
         lines.Add( string.Format( json_format_arr,
           "symbol_rotation",
