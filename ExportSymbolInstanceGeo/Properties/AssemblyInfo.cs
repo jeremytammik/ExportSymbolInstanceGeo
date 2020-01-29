@@ -71,6 +71,7 @@ using System.Runtime.InteropServices;
 // 2020-01-29 2020.0.1.3 return triples enclosed in square brackets as JSON arrays
 // 2020-01-29 2020.0.1.3 remove duplicate brackets around translation
 // 2020-01-29 2020.0.1.3 skip empty solids
+// 2020-01-29 2020.0.1.4 scrap useless json subdictionaries
 //
-[assembly: AssemblyVersion( "2020.0.1.3" )]
-[assembly: AssemblyFileVersion( "2020.0.1.3" )]
+[assembly: AssemblyVersion( "2020.0.1.4" )]
+[assembly: AssemblyFileVersion( "2020.0.1.4" )]

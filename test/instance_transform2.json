@@ -4,3 +4,9 @@
 "symbol_rotation" : [ [-0.9816,0.1908,0], [-0.1908,-0.9816,0], [0,0,1] ],
 "symbol_translation" : [-1935,3285,0]
 }
+{
+"element_uid" : "39adadfa-1fcc-43c7-b4a0-1d4f9bfdb98c-0004f62b",
+"symbol_uid" : "066e0953-4a47-4c59-836c-077bd8dd25df-0000d1c4",
+"symbol_rotation" : [ [-0.9816,0.1908,0], [-0.1908,-0.9816,0], [0,0,1] ],
+"symbol_translation" : [1010,2713,0]
+}

@@ -41,11 +41,12 @@ for i in range(nsolids):
     ntriangles = len(fsym)
     print('%d symbol and %d instance triangles' % (ntriangles, len(finst)))
     for k in range(ntriangles):
-      print (k)
-    
-    
+      tsym = fsym[k]
+      tinst = finst[k]
+      nvertices = len(tsym)
+      print('%d symbol and %d instance triangle vertices' % (nvertices, len(tinst)))
+      for l in range(nvertices):
+        psym = tsym[l]
+        psymx = matrix44.apply_to_vector(matrix, psym)
+        print ('symbol geo vertex', psym, 'xforms to', psymx, '~=', tinst[l])
 
-  
-
-#p=[-140,223,978]
-#print(matrix44.apply_to_vector(matrix, p))

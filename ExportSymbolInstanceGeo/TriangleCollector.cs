@@ -44,7 +44,7 @@ namespace ExportSymbolInstanceGeo
         IntVertexLookup vertices )
       {
         return string.Format( 
-          "{{\"coords\": [ {0}, {1}, {2} ] }}",
+          "[ {0}, {1}, {2} ]",
           vertices[A].ToJsonCoords(), 
           vertices[B].ToJsonCoords(), 
           vertices[C].ToJsonCoords() );
@@ -65,7 +65,7 @@ namespace ExportSymbolInstanceGeo
         IntVertexLookup vertices )
       {
         return string.Format(
-          "{{\"triangles\": [ {0} ] }}",
+          "[ {0} ]",
           string.Join( ", ",
             this.Select<JtTriangle, string>( t
               => t.ToJsonCoords( vertices ) ) ) );
@@ -86,7 +86,7 @@ namespace ExportSymbolInstanceGeo
         IntVertexLookup vertices )
       {
         return string.Format(
-          "{{\"faces\": [ {0} ] }}",
+          "[ {0} ]",
           string.Join( ", ",
             this.Select<JtFace, string>( f
               => f.ToJson( vertices ) ) ) );
