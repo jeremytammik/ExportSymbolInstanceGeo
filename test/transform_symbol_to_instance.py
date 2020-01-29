@@ -30,6 +30,8 @@ nsolids = len(symbol_solids)
 
 print('%d symbol and %d instance solids' % (nsolids, len(instance_solids)))
 
+n_points_tested = 0
+
 for i in range(nsolids):
   solsym = symbol_solids[i]
   solinst = instance_solids[i]
@@ -48,5 +50,11 @@ for i in range(nsolids):
       for l in range(nvertices):
         psym = tsym[l]
         psymx = matrix44.apply_to_vector(matrix, psym)
-        print ('symbol geo vertex', psym, 'xforms to', psymx, '~=', tinst[l])
+        pinst = Vector3(tinst[l])
+        vdiff = pinst - psymx
+        dist = vector.length(vdiff)
+        print ('symbol vertex', psym, 'xform:', psymx, '~=', tinst[l], 'diff', '{0:.2f}'.format(dist), 'mm')
+        assert 1 > dist, 'expected distances less than 1 mm'
+        n_points_tested += 1
 
+print( n_points_tested, 'points tested, all transformed symbol vertices are within 1 mm of the corresponding instance vertices')
