@@ -65,6 +65,7 @@ using System.Runtime.InteropServices;
 // 2020-01-29 2020.0.1.1 instance geometry export looks good
 // 2020-01-29 2020.0.1.2 implemented output of symbol geometry and transformation
 // 2020-01-29 2020.0.1.2 successful test of family symbol export, fixed assertion
+// 2020-01-29 2020.0.1.3 split symbol geometry and instance-symbol relationship into separate files
 //
-[assembly: AssemblyVersion( "2020.0.1.2" )]
-[assembly: AssemblyFileVersion( "2020.0.1.2" )]
+[assembly: AssemblyVersion( "2020.0.1.3" )]
+[assembly: AssemblyFileVersion( "2020.0.1.3" )]

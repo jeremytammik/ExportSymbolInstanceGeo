@@ -22,8 +22,8 @@ namespace ExportSymbolInstanceGeo
     const string _ext = ".json";
     const string _dir = "C:/tmp/";
     const string _fn_instance_geo = _dir + "instance_geometry" + _ext;
-    const string _fn_symbol_geo = _dir + "symbol_geometry" + _ext;
     const string _fn_instance_xform = _dir + "instance_transform" + _ext;
+    const string _fn_symbol_geo = _dir + "symbol_geometry" + _ext;
 
     /// <summary>
     /// User interface usage prompt string
@@ -72,12 +72,12 @@ namespace ExportSymbolInstanceGeo
       TriangleCollector triangulator
         = new TriangleCollector( e );
 
-      const string json_format_str = "\"{0}\" : \"{1}\"";
+      // Export instance geometry solid, mesh, 
+      // face and triangle coordinates
 
       List<string> lines = new List<string>();
 
-      // Export instance geometry solid, mesh, 
-      // face and triangle coordinates
+      const string json_format_str = "\"{0}\" : \"{1}\"";
 
       lines.Add( string.Format( json_format_str, 
         "element_uid", e.UniqueId ) );
@@ -93,21 +93,14 @@ namespace ExportSymbolInstanceGeo
         "symbol_is_nested", triangulator.IsNested 
           ? "true" : "false" ) );
 
-      using( StreamWriter s = new StreamWriter(
-        _fn_instance_geo, true ) )
-      {
-        string a = "{\r\n"
-          + string.Join( ",\r\n", lines )
-          + "\r\n}\r\n";
-
-        s.Write( a );
-        s.Close();
-      }
+      Util.WriteJsonFile( _fn_instance_geo, lines );
 
       if( triangulator.HasSymbol && !triangulator.IsNested )
       {
         Debug.Assert( e is FamilyInstance, 
           "expected only family instance to have symbol geometry" );
+
+        // Export instance symbol relationship
 
         lines.Clear();
 
@@ -115,32 +108,33 @@ namespace ExportSymbolInstanceGeo
           "element_uid", e.UniqueId ) );
 
         lines.Add( string.Format( json_format_str,
-          "symbol_uid", 
+          "symbol_uid",
           (e as FamilyInstance).Symbol.UniqueId ) );
 
         const string json_format_arr = "\"{0}\" : [{1}]";
 
         lines.Add( string.Format( json_format_arr,
-          "symbol_rotation", 
+          "symbol_rotation",
           triangulator.SymbolRotation ) );
 
         lines.Add( string.Format( json_format_arr,
-          "symbol_translation", 
+          "symbol_translation",
           triangulator.SymbolTranslation ) );
+
+        Util.WriteJsonFile( _fn_instance_xform, lines );
+
+        // Export symbol geometry
+
+        lines.Clear();
+
+        lines.Add( string.Format( json_format_str,
+          "symbol_uid",
+          (e as FamilyInstance).Symbol.UniqueId ) );
 
         lines.Add( triangulator.SymbolMeshesJson );
         lines.Add( triangulator.SymbolSolidsJson );
 
-        using( StreamWriter s = new StreamWriter(
-          _fn_instance_xform, true ) )
-        {
-          string a = "{\r\n"
-            + string.Join( ",\r\n", lines )
-            + "\r\n}\r\n";
-
-          s.Write( a );
-          s.Close();
-        }
+        Util.WriteJsonFile( _fn_symbol_geo, lines );
       }
       return Result.Succeeded;
     }

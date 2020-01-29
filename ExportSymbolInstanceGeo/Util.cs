@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using Autodesk.Revit.DB;
 
 namespace ExportSymbolInstanceGeo
@@ -32,6 +34,22 @@ namespace ExportSymbolInstanceGeo
         RealString( p.X ),
         RealString( p.Y ),
         RealString( p.Z ) );
+    }
+
+    public static void WriteJsonFile( 
+      string path,
+      IList<string> lines )
+    {
+      using( StreamWriter s = new StreamWriter(
+        path, true ) )
+      {
+        string a = "{\r\n"
+          + string.Join( ",\r\n", lines )
+          + "\r\n}\r\n";
+
+        s.Write( a );
+        s.Close();
+      }
     }
     #endregion // Formatting
 
