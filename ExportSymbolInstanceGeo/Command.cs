@@ -75,7 +75,7 @@ namespace ExportSymbolInstanceGeo
       const string json_format_str = "\"{0}\" : \"{1}\"";
       const string json_format_arr = "\"{0}\" : [{1}]";
 
-      List<string> lines = new List<string>( n );
+      List<string> lines = new List<string>();
 
       lines.Add( string.Format( json_format_str, 
         "element_uid", e.UniqueId ) );

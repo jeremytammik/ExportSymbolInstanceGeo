@@ -631,14 +631,6 @@ namespace ExportSymbolInstanceGeo
       }
     }
 
-    public int MaxNestingLevel
-    {
-      get
-      {
-        return _max_nesting_level;
-      }
-    }
-
     public string SymbolTriangleIndices
     {
       get
