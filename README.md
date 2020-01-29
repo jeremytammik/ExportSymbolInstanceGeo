@@ -2,11 +2,13 @@
 
 Revit C# .NET add-in that exports selected element symbol and instance geometry triangles.
 
+Overall goal: export `FamilyInstance` geometry as `FamilySymbol` geometry plus translation.
+
 - [Task &ndash; First Iteration](#1.1)
 - [Discussion of First Iteration](#1.2)
 - [No Nested Families](#1.3)
 - [Handling Nested Families](#1.4)
-- [Second Iteration Task &ndash; Export FamilyInstance Geometry as FamilySymbol plus Translation](#2)
+- [Task &ndash; Second Iteration](#2)
 - [Second Iteration Result](#2.1)
 
 
@@ -49,9 +51,9 @@ Besides family_symbols.json and translation.json, we need a family_instances.jso
 
 In fact, I would store all the required information in one single file, containing:
 
-a list of all XYZ points used
-a list of all family symbols with their id and geometry definition, i.e., triangles.
-a list of all family instances with their id, family symbol id and transform.
+- a list of all XYZ points used
+- a list of all family symbols with their id and geometry definition, i.e., triangles.
+- a list of all family instances with their id, family symbol id and transform.
 
 The entire solution needs to work only for the currently selected element.
 
@@ -108,7 +110,7 @@ This will generate two symbol definitions for D1.
 How do we identify them, how to tell them apart?
 
 
-## <a name="2"></a>Second Iteration Task &ndash; Export FamilyInstance Geometry as FamilySymbol plus Translation
+## <a name="2"></a>Task &ndash; Second Iteration
 
 Let's make a new start based on the experience gathered from the first attempt.
 
