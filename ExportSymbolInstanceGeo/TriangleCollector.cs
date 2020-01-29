@@ -446,9 +446,9 @@ namespace ExportSymbolInstanceGeo
       get
       {
         Transform t = _symbol_transform;
-        return Util.PointString( t.BasisX, false, false )
-          + ", " + Util.PointString( t.BasisY, false, false )
-          + ", " + Util.PointString( t.BasisZ, false, false );
+        return Util.PointString( t.BasisX, false, false, true )
+          + ", " + Util.PointString( t.BasisY, false, false, true )
+          + ", " + Util.PointString( t.BasisZ, false, false, true );
       }
     }
 
