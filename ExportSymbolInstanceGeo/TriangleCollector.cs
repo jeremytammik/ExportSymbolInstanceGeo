@@ -14,13 +14,17 @@ namespace ExportSymbolInstanceGeo
   /// </summary>
   class TriangleCollector
   {
-    #region Triangle indices
-    class TriangleIndices
+    #region JtTriangle
+    /// <summary>
+    /// Keep track of the vertex indices 
+    /// of the three corners of ther triangle
+    /// </summary>
+    class JtTriangle
     {
       public int A { get; set; }
       public int B { get; set; }
       public int C { get; set; }
-      public TriangleIndices( int a, int b, int c )
+      public JtTriangle( int a, int b, int c )
       {
         A = a;
         B = b;
@@ -45,10 +49,10 @@ namespace ExportSymbolInstanceGeo
           vertices[C].ToJsonCoords() );
       }
     }
-    #endregion // Triangle indices
+    #endregion // JtTriangle
 
     #region JtFace
-    class JtFace : List<TriangleIndices>
+    class JtFace : List<JtTriangle>
     {
       public JtFace(int capacity) : base( capacity ) { }
     }
@@ -131,17 +135,17 @@ namespace ExportSymbolInstanceGeo
       return _vertices.Add( new IntPoint3d( p ) );
     }
 
-    TriangleIndices GetInstanceTriangle( XYZ p, XYZ q, XYZ r )
+    JtTriangle GetInstanceTriangle( XYZ p, XYZ q, XYZ r )
     {
-      return new TriangleIndices(
+      return new JtTriangle(
         VertexIndexOf( TransformPoint( p ) ),
         VertexIndexOf( TransformPoint( q ) ),
         VertexIndexOf( TransformPoint( r ) ) );
     }
 
-    TriangleIndices GetSymbolTriangle( XYZ p, XYZ q, XYZ r )
+    JtTriangle GetSymbolTriangle( XYZ p, XYZ q, XYZ r )
     {
-      TriangleIndices ti = null;
+      JtTriangle ti = null;
 
       if( InSymbol )
       {
@@ -158,7 +162,7 @@ namespace ExportSymbolInstanceGeo
             _transformations[ 0 ] ) );
         }
 
-        ti = new TriangleIndices(
+        ti = new JtTriangle(
           VertexIndexOf( p ),
           VertexIndexOf( q ),
           VertexIndexOf( r ) );
@@ -345,7 +349,7 @@ namespace ExportSymbolInstanceGeo
       }
     }
 
-    public string SymbolTriangleIndices
+    public string SymbolJtTriangle
     {
       get
       {
