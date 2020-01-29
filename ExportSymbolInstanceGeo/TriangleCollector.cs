@@ -30,6 +30,7 @@ namespace ExportSymbolInstanceGeo
         B = b;
         C = c;
       }
+
       public override string ToString()
       {
         return string.Format( "{0} {1} {2}", A, B, C );

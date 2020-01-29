@@ -113,11 +113,12 @@ namespace ExportSymbolInstanceGeo
     }
 
     /// <summary>
-    /// Return as a comma-separated string.
+    /// Return as a comma-separated string enclosed in
+    /// square brackets, i.e., a valid JSON array.
     /// </summary>
     public string ToJsonCoords()
     {
-      return string.Format( "{0},{1},{2}", X, Y, Z );
+      return string.Format( "[{0},{1},{2}]", X, Y, Z );
     }
 
     /// <summary>
