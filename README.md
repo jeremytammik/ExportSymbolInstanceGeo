@@ -168,6 +168,8 @@ matrix multiplication to implement the required transformations.
 
 ## <a name="2.2"></a>Second Iteration Explanation
 
+**Questions:**
+
 I am still confused. Here are some questions that come to mind that might help me understand better:
 
 1. What is the difference between the following two?
@@ -196,7 +198,7 @@ does it mean that sometimes an element has an underlying `GeometryInstance`, but
 
 P.S - I think some of the questions have the same answers... yet, it's better to ask :)
  
-Answers:
+**Answers:**
 
 I think the remark you pointed out says it all:
  
@@ -221,7 +223,41 @@ Afaik, and according to the description above, the symbol geometry is always the
 Yes, I think going straight through the geometries is better, because if I check for a symbol, that does not answer the question on whether the instance is actually making use of the original unmodified family symbol geometry or not; I still need to perform the check on the geometries anyway.
  
 5: GetInstanceGeometry returns the geometry in model coordinates. SymbolGeometry returns them in symbol coordinates. If we wish to share the symbol geometry between multiple instances, we need the symbol geometry in symbol coordinates plus the transform into the model space. A different transform for each instance. Same symbol geometry for each instance. That's the point.
+
+**Response:**
+
+I am stil confused regarding number 4.
+Imagine I have 3 different elements, with 3 different GeometryInstance, reusing the same geometry symbol.
+How can I know that this is the same one and make sure I export it only once? It doesn't have any ID that I can see.
+The goal is obviously to export this symbol a single time togther with all the required transformations.
+
+**Answer:**
+
+Three instances: I1, I2 AND I3.
  
+All use the same symbol S.
+ 
+I1 and I2 use it unmodified:
+ 
+- Get geometry &rarr; instance geometry + transforms T1 and T2
+ 
+I3 needs a modification, so it gets a unique copy:
+ 
+- Get geometry &rarr; no instance geometry, just meshes and solids or whatever else is needed to define the geometry
+
+The family symbol unique id is used to identify the family symbol geometry.
+It is checked and retrieved at a higher level, in the main command:
+
+```
+    lines.Add( string.Format( json_format_str,
+      "symbol_uid",
+      (e as FamilyInstance).Symbol.UniqueId ) );
+```
+
+In the top level code, you can collect and keep track of all the family symbols and their geometry.
+
+At the end of the command, you only export one copy for each family symbol unique id.
+
 
 ## <a name="author"></a>Author
 
