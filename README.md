@@ -165,6 +165,58 @@ It makes use of
 the [Pyrr 3D mathematical functions using NumPy](https://github.com/adamlwgriffiths/Pyrr) for
 matrix multiplication to implement the required transformations.
 
+## <a name="2.2"></a>Second Iteration Explanation
+
+I am still confused. Here are some questions that come to mind that might help me understand better:
+
+1. What is the difference between the following two?
+ 
+    GeometryInstance geoInst;
+    GeometryElement geoElem = geoInst.SymbolGeometry;
+ 
+And:
+ 
+    GeometryInstance geoInst;  
+    GeometryElement geoElem = geoInst.GetSymbolGeometry();
+ 
+2. I read the remarks in the documentation on
+the [GeometryInstance class](https://www.revitapidocs.com/2020/fe25b14f-5866-ca0f-a660-c157484c3a56.htm);
+does it mean that sometimes an element has an underlying `GeometryInstance`, but might anyway be represented only of Solids/Meshes/...?
+ 
+3. When getting the `GeometryElement` of multiple different elements using `inst.SymbolGeometry`, how can I know that they are the same, and avoid exporting them both, but only export one of them, adding a translation for each element separately?
+ 
+4. You don't use the `FamilyInstance.Symbol` field to reach the original symbol, just directly through geometries, so you don't even need to check whether it's a `FamilyInstance` or not. Do you think one method is strictly better than the other?
+ 
+5. I can also traverse the geometry using `GetInstanceGeometry` instead of `SymbolGeometry`. Why don't you?
+
+P.S - I think some of the questions have the same answers... yet, it's better to ask :)
+ 
+Answers:
+
+I think the remark you pointed out says it all:
+ 
+> A GeometryInstance represents a set of geometry stored by Revit in a default configuration, and then transformed into the proper location as a result of the properties of the element. The most common situation where GeometryInstances are encountered is in Family instances. Revit uses GeometryInstances to allow it to store a single copy of the geometry for a given family and reuse it in multiple instances. Note that not all Family instances will include GeometryInstances. When Revit needs to make a unique copy of the family geometry for a given instance (because of the effect of local joins, intersections, and other factors related to the instance placement) no GeometryInstance will be encountered; instead the Solid geometry will be found at the top level of the hierarchy. A GeometryInstance offers the ability to read its geometry through the GetSymbolGeometry() and GetInstanceGeometry() methods. These methods return another Autodesk.Revit.DB.GeometryElement which can be parsed just like the first level return.
+ 
+1: difference between SymbolGeometry and GetSymbolGeometry?
+ 
+As far as I know, they are equivalent, except that the 'get' method enables you to specify a transform to the geometry retrieved.
+ 
+2: can an element sometimes have underlying GeometryInstances, but might be structured of Solids/Meshes/... only?
+ 
+I would not use that phrasing. More precisely, I would ask: can an element be a family instance yet not make use of any GeometryInstance for its representation?
+ 
+Afaict the answer is yes. If you wish, I can create a test case to prove it.
+
+3: When using inst.SymbolGeometry on several elements, how can I know that they are the same?
+ 
+Afaik, and according to the description above, the symbol geometry is always the unmodified geometry specified by the family definition. If the element needs something different, a unique adaptation is created for it, cf. description above.
+ 
+4: you don't use `FamilyInstance.Symbol` to reach the original symbol, just directly through geometries (so you don't even need to check whether it's a FamilyInstance or not). Do you think one method is strictly better than the other?
+ 
+Yes, I think going straight through the geometries is better, because if I check for a symbol, that does not answer the question on whether the instance is actually making use of the original unmodified family symbol geometry or not; I still need to perform the check on the geometries anyway.
+ 
+5: GetInstanceGeometry returns the geometry in model coordinates. SymbolGeometry returns them in symbol coordinates. If we wish to share the symbol geometry between multiple instances, we need the symbol geometry in symbol coordinates plus the transform into the model space. A different transform for each instance. Same symbol geometry for each instance. That's the point.
+ 
 
 ## <a name="author"></a>Author
 
