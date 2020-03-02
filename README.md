@@ -10,6 +10,7 @@ Overall goal: export `FamilyInstance` geometry as `FamilySymbol` geometry plus t
 - [Handling Nested Families](#1.4)
 - [Task &ndash; Second Iteration](#2)
 - [Second Iteration Result](#2.1)
+- [Second Iteration Explanation](#2.2)
 
 
 ## <a name="1.1"></a>Task &ndash; First Iteration
