@@ -170,15 +170,19 @@ matrix multiplication to implement the required transformations.
 I am still confused. Here are some questions that come to mind that might help me understand better:
 
 1. What is the difference between the following two?
- 
+
+``` 
     GeometryInstance geoInst;
     GeometryElement geoElem = geoInst.SymbolGeometry;
- 
+```
+
 And:
- 
+
+``` 
     GeometryInstance geoInst;  
     GeometryElement geoElem = geoInst.GetSymbolGeometry();
- 
+```
+
 2. I read the remarks in the documentation on
 the [GeometryInstance class](https://www.revitapidocs.com/2020/fe25b14f-5866-ca0f-a660-c157484c3a56.htm);
 does it mean that sometimes an element has an underlying `GeometryInstance`, but might anyway be represented only of Solids/Meshes/...?
